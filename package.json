@@ -1,0 +1,22 @@
+{
+  "name": "gasb_site",
+  "version": "1.0.0",
+  "description": "gasb_site2: Electric Boogaloo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.gasantos.xyz:GASB0/gasb_site.git"
+  },
+  "keywords": [
+    "personal",
+    "website"
+  ],
+  "author": "GASB0",
+  "license": "ISC",
+  "dependencies": {
+    "express-generator": "^4.16.1"
+  }
+}
