@@ -9,31 +9,57 @@
 </head>
 
 <body>
-  <header id="headerContainer">
+  <!-- <header> -->
+  <!--   <nav id="navBar"> -->
+  <!--     <ul> -->
+  <!--       <li><a href="#">Inicio</a></li> -->
+  <!--       <li><a href="#">Sobre nosotros</a></li> -->
+  <!--       <li><a href="#">Contacto</a></li> -->
+  <!--     </ul> -->
+  <!--   </nav> -->
+  <!-- </header> -->
+
+  <div style="width:30px; bottom:30px; position:fixed; right:0px; writing-mode: vertical-lr; font-size:15px;">
+    _cool stuff_
+  </div>
+
+  <section id="presentation">
     <div id="upperWrap">
       <div id="upper">
         <%= title %><span id="blinkingCursor">_</span>
       </div>
     </div>
-
     <div id="line"></div>
-
     <div id="lowerWrap">
       <div id="lower">Welcome to my little piece of internet</div>
     </div>
-  </header>
+  </section>
 
-  <div class="genericContainer">
-    <p id="sampleText1">Sample Text</p>
-  </div>
+  <section id="aboutThisPage" style="width:70%;">
+    <h1>About</h1>
+    <div>
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="polygonalContainer" points="0,0 100,0 100,100 0,100" fill='none' stroke='white' />
+        <foreignObject x="0" y="0" width="100" height="100">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sed mollis mollis mi ut ultricies. Nullam magna ipsum,
+            porta vel dui convallis, rutrum imperdiet eros. Aliquam
+            erat volutpat.
+          </div>
+        </foreignObject>
+      </svg>
+    </div>
+  </section>
 
-  <!-- <nav id="navBar"> -->
-  <!--   <ul> -->
-  <!--     <li><a href="#">Inicio</a></li> -->
-  <!--     <li><a href="#">Sobre nosotros</a></li> -->
-  <!--     <li><a href="#">Contacto</a></li> -->
-  <!--   </ul> -->
-  <!-- </nav> -->
+  <section id="projects">
+  </section>
+
+  <section id="blog">
+  </section>
+
+  <section id="contactMe">
+  </section>
 
 
   <script src="/javascripts/anime.min.js"></script>
