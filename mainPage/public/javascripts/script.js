@@ -1,3 +1,5 @@
+// const anime = require("animejs");
+
 // Blinking cursor animation
 const blinkingObject = document.getElementById('blinkingCursor')
 let showObj = true;
@@ -42,31 +44,27 @@ tl.add({
   duration: 1000,
 })
 
-// anime.timeline({
-//   easing: 'easeOutQuad',
-// }).add({
-//   targets: '.polymorph',
-//   points: [
-//     { value: '70 24 119.574 60.369 100.145 117.631 50.855 101.631 3.426 54.369' },
-//     { value: '70 41 118.574 59.369 111.145 132.631 60.855 84.631 20.426 60.369' },
-//     { value: '70 6 119.574 60.369 100.145 117.631 39.855 117.631 55.426 68.369' },
-//     { value: '70 57 136.574 54.369 89.145 100.631 28.855 132.631 38.426 64.369' },
-//     { value: '70 24 119.574 60.369 100.145 117.631 50.855 101.631 3.426 54.369' }
-//   ],
-//   easing: 'easeOutQuad',
-//   direction: 'alternate',
-//   loop: true,
-//   duration: 2000,
-// });
 
+// Funcion para rodear contenido de un div con un rectangulo SVG
+function surroundSection(elementToSurround) {
+  svgContainer = elementToSurround.querySelector('.svgContainer')
+  svgContainer.setAttribute("points", `0,0 ${elementToSurround.offsetWidth - 5},0 ${elementToSurround.offsetWidth - 5},
+                                           ${elementToSurround.offsetHeight - 5} 0,${elementToSurround.offsetHeight - 5}`);
+}
+
+// Funcion para animar el rodeado de un div con rectangulo SVG
+function animateSurrounding(sectionToAnimate) {
+  surroundSection(sectionToAnimate);
+  anime({
+    targets: sectionToAnimate.querySelector('.svgContainer'),
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: 'cubicBezier(.5, .05, .1, .3)',
+    duration: 1500,
+    autoplay: true,
+    delay: function(el, i) { return i * 250 },
+    loop: false,
+  });
+}
 
 // Animacion del about
-var animation = anime({
-  targets: '.polygonalContainer',
-  strokeDashoffset: [anime.setDashoffset, 0],
-  easing: 'cubicBezier(.5, .05, .1, .3)',
-  duration: 1500,
-  autoplay: true,
-  delay: function(el, i) { return i * 250 },
-  loop: false,
-});
+animateSurrounding(document.getElementById('aboutThisPage'))
