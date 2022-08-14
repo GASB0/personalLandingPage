@@ -44,12 +44,38 @@ tl.add({
   duration: 1000,
 })
 
+// Animacion de la barra lateral izquierda
+anime({
+  targets: ['.animate-thing path', '.animate-thing rect', '.animate-thing line', '.animate-thing polyline', '.animate-thing circle'],
+  strokeDashoffset: [anime.setDashoffset, 0],
+  easing: 'easeInOutSine',
+  duration: 1500,
+  opacity: [0, 1],
+  delay: 400,
+});
 
-// Funcion para rodear contenido de un div con un rectangulo SVG
+// Centralizacion de las secciones de la pagina:
+function centralizeSection(sectionToCentralize) {
+  paddingTop = (sectionToCentralize.offsetHeight - sectionToCentralize.querySelector('.secContent').offsetHeight) / 2;
+  console.log(paddingTop);
+  sectionToCentralize.style.paddingTop = `${paddingTop}px`;
+}
+
+// Funcion para rodear contenido de cualquier cosa a la que se le pueda hacer query
 function surroundSection(elementToSurround) {
-  svgContainer = elementToSurround.querySelector('.svgContainer')
-  svgContainer.setAttribute("points", `0,0 ${elementToSurround.offsetWidth - 5},0 ${elementToSurround.offsetWidth - 5},
-                                           ${elementToSurround.offsetHeight - 5} 0,${elementToSurround.offsetHeight - 5}`);
+  if (typeof (elementToSurround) == "object") {
+    svgContainer = elementToSurround.querySelector('.svgContainer');
+  } else if (typeof (elementToSurround) == "string") {
+    svgContainer = document.getElementById(elementToSurround).querySelector('.svgContainer');
+  }
+
+  console.log(elementToSurround.querySelector('.secContent').offsetWidth, elementToSurround.querySelector('.secContent').offsetHeight);
+
+  svgContainer.setAttribute("points",
+    `0,0 ${elementToSurround.querySelector('.secContent').offsetWidth},0
+    ${elementToSurround.querySelector('.secContent').offsetWidth},${elementToSurround.querySelector('.secContent').offsetHeight} 
+    0,${elementToSurround.querySelector('.secContent').offsetHeight}
+    0,0`);
 }
 
 // Funcion para animar el rodeado de un div con rectangulo SVG
@@ -61,10 +87,24 @@ function animateSurrounding(sectionToAnimate) {
     easing: 'cubicBezier(.5, .05, .1, .3)',
     duration: 1500,
     autoplay: true,
-    delay: function(el, i) { return i * 250 },
     loop: false,
   });
 }
 
-// Animacion del about
+// Reajustando los recuadros cuando se reajusta la ventana
+window.onresize = () => {
+  document.querySelectorAll('.surroundedByBox').forEach(node => {
+    surroundSection(node);
+  })
+};
+
+// Animacion de las secciones
 animateSurrounding(document.getElementById('aboutThisPage'))
+// console.log(
+//   document.getElementById('aboutThisPage').getBoundingClientRect()
+// )
+
+// Centralizacion de las secciones del documento
+for (i = 0; i < document.getElementsByTagName('section').length; i++) {
+  centralizeSection(document.getElementsByTagName('section')[i]);
+}

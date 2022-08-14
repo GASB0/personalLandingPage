@@ -19,11 +19,45 @@
   <!--   </nav> -->
   <!-- </header> -->
 
-  <div style="width:30px; bottom:30px; position:fixed; right:0px; writing-mode: vertical-lr; font-size:15px;">
-    _cool stuff_
+  <div style="width:30px; bottom:30%; position:fixed; right:0px; writing-mode: vertical-lr; font-size:15px;">
+    santos.baez.gabriel.elo@gmail.com
   </div>
 
-  <section id="presentation">
+  <div style="width:30px; bottom:40%; position:fixed; left:0px; font-size:15px;">
+    <svg xmlns="http://www.w3.org/2000/svg" class="animate-thing" width="24" height="24" viewBox="0 0 24 24"
+      stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <circle cx="16" cy="12" r="1"></circle>
+      <circle cx="12" cy="8" r="1"></circle>
+      <circle cx="12" cy="16" r="1"></circle>
+      <path d="M12 15v-6"></path>
+      <path d="M15 11l-2 -2"></path>
+      <path d="M11 7l-1.9 -1.9"></path>
+      <path
+        d="M10.5 20.4l-6.9 -6.9c-.781 -.781 -.781 -2.219 0 -3l6.9 -6.9c.781 -.781 2.219 -.781 3 0l6.9 6.9c.781 .781 .781 2.219 0 3l-6.9 6.9c-.781 .781 -2.219 .781 -3 0z">
+      </path>
+    </svg>
+
+    <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+      stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <polyline points="3 7 12 13 21 7"></polyline>
+    </svg>
+
+    <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+      stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11">
+      </path>
+      <line x1="8" y1="8" x2="12" y2="8"></line>
+      <line x1="8" y1="12" x2="12" y2="12"></line>
+      <line x1="8" y1="16" x2="12" y2="16"></line>
+    </svg>
+  </div>
+
+  <!-- Cabecera/Seccion de presentacion -->
+  <header id="presentation">
     <div id="upperWrap">
       <div id="upper">
         <%= title %><span id="blinkingCursor">_</span>
@@ -33,34 +67,26 @@
     <div id="lowerWrap">
       <div id="lower">Welcome to my little piece of internet</div>
     </div>
-  </section>
+  </header>
 
-  <section id="aboutThisPage" style="width:70%;">
-    <div style="font-size:inherit">
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="svgContainer about" fill='none' stroke='white' />
-        <foreignObject x="0" y="0" width="100%" height="100%">
-          <div id="aboutContent" xmlns="http://www.w3.org/1999/xhtml">
+  <!-- Contenido de la pagina -->
+  <section id="aboutThisPage" class='surroundedByBox'>
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="svgContainer" fill='none' stroke='white' />
+      <foreignObject x="0" y="0" width="100%" height="100%">
+        <div class="secContent" xmlns="http://www.w3.org/1999/xhtml">
+          <div style="font-size:14px; padding:10%">
+            <!--- wtf!? el padding-top arregla el tamano del recuadro-->
             <h1>About</h1>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Sed mollis mollis mi ut ultricies. Nullam magna ipsum,
             porta vel dui convallis, rutrum imperdiet eros. Aliquam
             erat volutpat.
           </div>
-        </foreignObject>
-      </svg>
-    </div>
+        </div>
+      </foreignObject>
+    </svg>
   </section>
-
-  <section id="projects">
-  </section>
-
-  <section id="blog">
-  </section>
-
-  <section id="contactMe">
-  </section>
-
 
   <script src="/javascripts/anime.min.js"></script>
   <script type="text/javascript" src="/javascripts/script.js"></script>
