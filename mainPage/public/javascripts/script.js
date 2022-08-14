@@ -49,15 +49,14 @@ anime({
   targets: ['.animate-thing path', '.animate-thing rect', '.animate-thing line', '.animate-thing polyline', '.animate-thing circle'],
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
-  duration: 1500,
+  duration: 1000,
+  delay: function(el, i) { return (i * 60); },
   opacity: [0, 1],
-  delay: 400,
 });
 
 // Centralizacion de las secciones de la pagina:
 function centralizeSection(sectionToCentralize) {
   paddingTop = (sectionToCentralize.offsetHeight - sectionToCentralize.querySelector('.secContent').offsetHeight) / 2;
-  console.log(paddingTop);
   sectionToCentralize.style.paddingTop = `${paddingTop}px`;
 }
 
@@ -68,8 +67,6 @@ function surroundSection(elementToSurround) {
   } else if (typeof (elementToSurround) == "string") {
     svgContainer = document.getElementById(elementToSurround).querySelector('.svgContainer');
   }
-
-  console.log(elementToSurround.querySelector('.secContent').offsetWidth, elementToSurround.querySelector('.secContent').offsetHeight);
 
   svgContainer.setAttribute("points",
     `0,0 ${elementToSurround.querySelector('.secContent').offsetWidth},0
@@ -107,4 +104,11 @@ animateSurrounding(document.getElementById('aboutThisPage'))
 // Centralizacion de las secciones del documento
 for (i = 0; i < document.getElementsByTagName('section').length; i++) {
   centralizeSection(document.getElementsByTagName('section')[i]);
+}
+// Centralizacion los elementos laterales
+for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
+  thingToCentralize = document.querySelectorAll('.sideStuff')[i];
+  padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
+  console.log(padding)
+  thingToCentralize.style.bottom = `${padding}px`;
 }

@@ -52,6 +52,19 @@ section{
   clear: both;
 }
 
+/* Configuraciones para la barra lateral izquierda */
+.sideButtonRow{
+text-align:left;
+}
+.sideButtonLogo{
+  display: inline-block;
+  vertical-align:middle;
+}
+.sideButtonText{
+  display: inline-block;
+  vertical-align:middle;
+}
+
 /* Animacion del inicio */
 #upperWrap, #lowerWrap {
   overflow: hidden;
