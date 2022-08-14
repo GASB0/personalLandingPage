@@ -57,7 +57,7 @@ class slideButton {
     var textWrapper = sideButtonRow.querySelector('.sideButtonText .letters');
     textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
     sideButtonRow.querySelectorAll('.sideButtonText .line').forEach(elem => {
-      elem.style.left = `${sideButtonRow.querySelectorAll('.animate-thing')[0].getBoundingClientRect().width}px`
+      elem.style.left = `${sideButtonRow.querySelector('.animate-thing').getBoundingClientRect().width}px`
     });
     this.sideButtonAnimation = anime.timeline({ loop: false, autoplay: false, })
       .add({
@@ -96,6 +96,15 @@ class slideButton {
   }
 }
 
+// Revisar si el elemento esta dentro del viewport
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    (Math.abs(rect.top) / 2) <= window.innerHeight / 4 &&
+    rect.left >= 0
+  );
+}
+
 // Centralizacion de las secciones de la pagina:
 function centralizeSection(sectionToCentralize) {
   paddingTop = (sectionToCentralize.offsetHeight - sectionToCentralize.querySelector('.secContent').offsetHeight) / 2;
@@ -117,17 +126,26 @@ function surroundSection(elementToSurround) {
     0,0`);
 }
 
-// Funcion para animar el rodeado de un div con rectangulo SVG
-function animateSurrounding(sectionToAnimate) {
-  surroundSection(sectionToAnimate);
-  anime({
-    targets: sectionToAnimate.querySelector('.svgContainer'),
-    strokeDashoffset: [anime.setDashoffset, 0],
-    easing: 'cubicBezier(.5, .05, .1, .3)',
-    duration: 1500,
-    autoplay: true,
-    loop: false,
-  });
+class animatedSurrounding {
+  constructor(element) {
+    this.animated = false;
+    this.element = element;
+    surroundSection(this.element);    // Funcion para animar el rodeado de un div con rectangulo SVG
+    this.animation = anime({
+      targets: this.element.querySelector('.svgContainer'),
+      strokeDashoffset: [anime.setDashoffset, 0],
+      easing: 'cubicBezier(.5, .05, .1, .3)',
+      duration: 1500,
+      autoplay: false,
+      loop: false,
+    });
+  }
+  play() {
+    if (!this.animated) {
+      this.animated = true;
+      this.animation.play();
+    }
+  }
 }
 
 // Reajustando los recuadros cuando se reajusta la ventana
@@ -136,9 +154,6 @@ window.onresize = () => {
     surroundSection(node);
   })
 };
-
-// Animacion de las secciones
-animateSurrounding(document.getElementById('aboutThisPage'))
 
 // Centralizacion de las secciones del documento
 for (i = 0; i < document.getElementsByTagName('section').length; i++) {
@@ -165,3 +180,16 @@ document.querySelectorAll('.sideButtonRow').forEach((elem) => {
       currentSlideButton.play();
     });
 });
+
+// Animacion de las secciones
+console.log(document.querySelectorAll('section'))
+document.querySelectorAll('section')
+  .forEach((elem) => {
+    var section = new animatedSurrounding(elem);
+    document.addEventListener('scroll', (ev) => {
+      if (isInViewport(section.element)) {
+        // TODO: Remove section from this event listener after drawing.
+        section.play();
+      }
+    })
+  })
