@@ -1,5 +1,3 @@
-// const anime = require("animejs");
-
 // Blinking cursor animation
 const blinkingObject = document.getElementById('blinkingCursor')
 let showObj = true;
@@ -14,10 +12,7 @@ setInterval(() => {
 }, 550);
 
 // Efecto cuando recien se carga la pagina
-var tl = anime.timeline({
-  easing: 'easeOutExpo',
-});
-
+var tl = anime.timeline({ easing: 'easeOutExpo' });
 tl.add({
   targets: '#line',
   opacity: [0.5, 1],
@@ -57,43 +52,49 @@ var startupSideButtonAnimation = anime({
 // Animaciones para los botones de los lados:
 class slideButton {
   constructor(sideButtonRow) {
-    this.sideButtonRow = sideButtonRow
+    this.reversed = false;
+    this.sideButtonRow = sideButtonRow;
+    var textWrapper = sideButtonRow.querySelector('.sideButtonText .letters');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+    sideButtonRow.querySelectorAll('.sideButtonText .line').forEach(elem => {
+      elem.style.left = `${sideButtonRow.querySelectorAll('.animate-thing')[0].getBoundingClientRect().width}px`
+    });
+    this.sideButtonAnimation = anime.timeline({ loop: false, autoplay: false, })
+      .add({
+        targets: sideButtonRow.querySelectorAll(".sideButtonText .line"),
+        scaleY: [0, 1],
+        opacity: [0.5, 1],
+        easing: "easeOutExpo",
+        duration: 500,
+      }).add({
+        targets: sideButtonRow.querySelectorAll('.sideButtonText .line'),
+        translateX: [0, sideButtonRow.querySelector('.sideButtonText .letters').getBoundingClientRect().width + 10],
+        easing: "easeOutExpo",
+        duration: 600,
+      }).add({
+        targets: sideButtonRow.querySelectorAll('.sideButtonText .letters .letter'),
+        opacity: [0, 1],
+        easing: "easeInOutExpo",
+        duration: 600,
+        delay: (el, i, l) => 10 * (i + 1),
+      }, '-=750')
   }
-
+  play() {
+    if (!this.reversed) {
+      this.reversed = false;
+      this.sideButtonAnimation.play();
+    } else {
+      this.sideButtonAnimation.reverse();
+      this.sideButtonAnimation.play();
+    }
+  }
+  reverse() {
+    this.reversed = true;
+  }
+  row() {
+    return this.sideButtonRow;
+  }
 }
-
-function animateButton(sideButtonRow) {
-  var textWrapper = sideButtonRow.querySelector('.sideButtonText .letters');
-  textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
-  sideButtonRow.querySelectorAll('.sideButtonText .line').forEach(elem => {
-    elem.style.left = `${sideButtonRow.querySelectorAll('.animate-thing')[0].getBoundingClientRect().width}px`
-  })
-
-  var onhoverSideButtonAnimation = anime.timeline({ loop: false })
-    .add({
-      targets: sideButtonRow.querySelectorAll(".sideButtonText .line"),
-      scaleY: [0, 1],
-      opacity: [0.5, 1],
-      easing: "easeOutExpo",
-      duration: 500,
-    }).add({
-      targets: sideButtonRow.querySelectorAll('.sideButtonText .line'),
-      translateX: [0, sideButtonRow.querySelector('.sideButtonText .letters').getBoundingClientRect().width + 10],
-      easing: "easeOutExpo",
-      duration: 600,
-    }).add({
-      targets: sideButtonRow.querySelectorAll('.sideButtonText .letters .letter'),
-      opacity: [0, 1],
-      easing: "easeInOutExpo",
-      duration: 600,
-      delay: (el, i, l) => 10 * (i + 1),
-    }, '-=750')
-}
-
-animateButton(document.getElementById('testRow0'))
-// animateButton(document.getElementById('testRow1'))
-// animateButton(document.getElementById('testRow2'))
-// animateButton(document.getElementById('testRow3'))
 
 // Centralizacion de las secciones de la pagina:
 function centralizeSection(sectionToCentralize) {
@@ -143,10 +144,24 @@ animateSurrounding(document.getElementById('aboutThisPage'))
 for (i = 0; i < document.getElementsByTagName('section').length; i++) {
   centralizeSection(document.getElementsByTagName('section')[i]);
 }
+
 // Centralizacion los elementos laterales
 for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
   thingToCentralize = document.querySelectorAll('.sideStuff')[i];
   padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
-  console.log(padding)
   thingToCentralize.style.bottom = `${padding}px`;
 }
+
+// Agregado animacion de los botones laterales
+document.querySelectorAll('.sideButtonRow').forEach((elem) => {
+  var currentSlideButton = new slideButton(elem);
+  currentSlideButton.row().querySelector('.sideButtonLogo')
+    .addEventListener('mouseenter', () => {
+      currentSlideButton.play();
+    });
+  currentSlideButton.row().querySelector('.sideButtonLogo')
+    .addEventListener('mouseleave', () => {
+      currentSlideButton.reverse();
+      currentSlideButton.play();
+    });
+});
