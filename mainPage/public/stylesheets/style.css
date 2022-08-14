@@ -64,6 +64,17 @@ text-align:left;
   display: inline-block;
   vertical-align:middle;
 }
+.sideButtonText .letter {
+  display: inline-block;
+  line-height: 1em;
+}
+.sideButtonText .line{
+  opacity: 0;
+  position: absolute;
+  height: 1em;
+  width: 3px;
+  background-color: #fff;
+}
 
 /* Animacion del inicio */
 #upperWrap, #lowerWrap {

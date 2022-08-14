@@ -45,7 +45,7 @@ tl.add({
 })
 
 // Animacion de la barra lateral izquierda
-anime({
+var startupSideButtonAnimation = anime({
   targets: ['.animate-thing path', '.animate-thing rect', '.animate-thing line', '.animate-thing polyline', '.animate-thing circle'],
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
@@ -53,6 +53,47 @@ anime({
   delay: function(el, i) { return (i * 60); },
   opacity: [0, 1],
 });
+
+// Animaciones para los botones de los lados:
+class slideButton {
+  constructor(sideButtonRow) {
+    this.sideButtonRow = sideButtonRow
+  }
+
+}
+
+function animateButton(sideButtonRow) {
+  var textWrapper = sideButtonRow.querySelector('.sideButtonText .letters');
+  textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+  sideButtonRow.querySelectorAll('.sideButtonText .line').forEach(elem => {
+    elem.style.left = `${sideButtonRow.querySelectorAll('.animate-thing')[0].getBoundingClientRect().width}px`
+  })
+
+  var onhoverSideButtonAnimation = anime.timeline({ loop: false })
+    .add({
+      targets: sideButtonRow.querySelectorAll(".sideButtonText .line"),
+      scaleY: [0, 1],
+      opacity: [0.5, 1],
+      easing: "easeOutExpo",
+      duration: 500,
+    }).add({
+      targets: sideButtonRow.querySelectorAll('.sideButtonText .line'),
+      translateX: [0, sideButtonRow.querySelector('.sideButtonText .letters').getBoundingClientRect().width + 10],
+      easing: "easeOutExpo",
+      duration: 600,
+    }).add({
+      targets: sideButtonRow.querySelectorAll('.sideButtonText .letters .letter'),
+      opacity: [0, 1],
+      easing: "easeInOutExpo",
+      duration: 600,
+      delay: (el, i, l) => 10 * (i + 1),
+    }, '-=750')
+}
+
+animateButton(document.getElementById('testRow0'))
+// animateButton(document.getElementById('testRow1'))
+// animateButton(document.getElementById('testRow2'))
+// animateButton(document.getElementById('testRow3'))
 
 // Centralizacion de las secciones de la pagina:
 function centralizeSection(sectionToCentralize) {
@@ -97,9 +138,6 @@ window.onresize = () => {
 
 // Animacion de las secciones
 animateSurrounding(document.getElementById('aboutThisPage'))
-// console.log(
-//   document.getElementById('aboutThisPage').getBoundingClientRect()
-// )
 
 // Centralizacion de las secciones del documento
 for (i = 0; i < document.getElementsByTagName('section').length; i++) {
