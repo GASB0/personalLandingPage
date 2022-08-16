@@ -1,4 +1,5 @@
 * {
+  scroll-behavior: smooth;
   box-sizing: border-box;
 }
 
@@ -18,6 +19,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  scroll-behavior: smooth;
 }
 
 header {
@@ -39,6 +41,26 @@ section{
   height: 100vh;
 }
 
+/* Estilo para la barra de navegacion */
+nav > ol {
+  text-align: right;
+	min-width: 300px;
+  list-style: decimal-leading-zero inside;
+}
+nav ol > li{
+  float: left;
+  margin-left:1rem;
+}
+nav ol > li > span{
+  position: relative;
+  left: -0.4em;
+}
+nav ol > li > span > a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* Estilo para las doble columnas */
 .column {
   float: left;
   width: 50%;

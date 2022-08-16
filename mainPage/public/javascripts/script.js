@@ -82,17 +82,14 @@ class slideButton {
   play() {
     if (!this.reversed) {
       this.reversed = false;
-      this.sideButtonAnimation.play();
+      return this.sideButtonAnimation.play();
     } else {
       this.sideButtonAnimation.reverse();
-      this.sideButtonAnimation.play();
+      return this.sideButtonAnimation.play();
     }
   }
   reverse() {
     this.reversed = true;
-  }
-  row() {
-    return this.sideButtonRow;
   }
 }
 
@@ -167,22 +164,26 @@ for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
   thingToCentralize.style.bottom = `${padding}px`;
 }
 
-// Agregado animacion de los botones laterales
+// Animacion de los botones laterales
 document.querySelectorAll('.sideButtonRow').forEach((elem) => {
   var currentSlideButton = new slideButton(elem);
-  currentSlideButton.row().querySelector('.sideButtonLogo')
+  currentSlideButton.sideButtonRow.querySelector('.sideButtonText').style.visibility = 'hidden';
+  currentSlideButton.sideButtonRow.querySelector('.sideButtonLogo')
     .addEventListener('mouseenter', () => {
+      currentSlideButton.sideButtonRow.querySelector('.sideButtonText').style.visibility = 'visible';
       currentSlideButton.play();
     });
-  currentSlideButton.row().querySelector('.sideButtonLogo')
+  currentSlideButton.sideButtonRow.querySelector('.sideButtonLogo')
     .addEventListener('mouseleave', () => {
       currentSlideButton.reverse();
       currentSlideButton.play();
+      currentSlideButton.sideButtonAnimation.finished.then(
+        console.log('terminado')
+      )
     });
 });
 
 // Animacion de las secciones
-console.log(document.querySelectorAll('section'))
 document.querySelectorAll('section')
   .forEach((elem) => {
     var section = new animatedSurrounding(elem);
@@ -193,3 +194,22 @@ document.querySelectorAll('section')
       }
     })
   })
+
+// Animacion de la barra de navegacion
+anime({
+  targets: document.querySelectorAll('nav ol li'),
+  easing: 'easeInOutSine',
+  opacity: [0, 1],
+  translateY: ['-1em', '0'],
+  duration: 700,
+  delay: anime.stagger(150),
+})
+
+// Animacion de la barra con mi correo
+anime({
+  targets: '#myEmail',
+  easing: 'easeInOutSine',
+  translateX: ['1em', '0'],
+  opacity: [0, 1],
+  duration: 500,
+})
