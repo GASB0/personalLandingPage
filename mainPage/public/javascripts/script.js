@@ -177,6 +177,7 @@ document.querySelectorAll('.sideButtonRow').forEach((elem) => {
     .addEventListener('mouseleave', () => {
       currentSlideButton.reverse();
       currentSlideButton.play();
+      // TODO: Setear la propiedad de visibilidad a hidden cuando se termine de correr la animacion invertida.
       currentSlideButton.sideButtonAnimation.finished.then(
         console.log('terminado')
       )
@@ -205,11 +206,21 @@ anime({
   delay: anime.stagger(150),
 })
 
-// Animacion de la barra con mi correo
-anime({
-  targets: '#myEmail',
-  easing: 'easeInOutSine',
-  translateX: ['1em', '0'],
-  opacity: [0, 1],
-  duration: 500,
-})
+// Animacion de la barra con mi correo y resume
+// TODO: Cambiar esta animacion
+// Quiero que esta animacion se vea como la animacion
+// que uso para los botones laterales
+anime.timeline({})
+  .add({
+    targets: '#myEmail',
+    easing: 'easeInOutSine',
+    translateX: ['1em', '0'],
+    opacity: [0, 1],
+    duration: 500,
+  }).add({
+    targets: '#myResume',
+    easing: 'easeInOutSine',
+    translateY: ['-1em', '0'],
+    opacity: [0, 1],
+    duration: 600,
+  })

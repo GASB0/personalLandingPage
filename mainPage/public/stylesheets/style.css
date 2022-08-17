@@ -42,20 +42,20 @@ section{
 }
 
 /* Estilo para la barra de navegacion */
-nav > ol {
+nav ol {
   text-align: right;
 	min-width: 300px;
   list-style: decimal-leading-zero inside;
 }
-nav ol > li{
+nav ol li{
   float: left;
-  margin-left:1rem;
+  margin-left:1.5rem;
 }
-nav ol > li > span{
+nav ol li span{
   position: relative;
   left: -0.4em;
 }
-nav ol > li > span > a{
+nav ol li span a{
   color:inherit;
   text-decoration:none;
 }
@@ -123,6 +123,7 @@ text-align:left;
     display: block;
     text-align: left;
     color: inherit;
+    border: 1px solid white;
 }
 .card-1:before, .card-1:after {
     border-radius: 0px;
@@ -132,7 +133,7 @@ text-align:left;
     border-radius: 0px;
 }
 .card-1:before { /* Segundo layer de la carta */
-    background-color: grey !important;
+    background-color: var(--our-black) !important;
 }
 .card-1:after { /* Tercer layer de la carta */
     background-color: white !important;
