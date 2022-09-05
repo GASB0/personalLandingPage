@@ -165,8 +165,8 @@ text-align:left;
     transform-origin: right center;
 }
 .stacked--left:hover {
-    transform: translate(3px, -3px);
+    transform: translate(-3px, 3px);
 }
 .stacked--left:hover.card-1:after{
-  transform: translate(-6px,6px) scale(0.95);
+  transform: translate(6px,6px) scale(0.95);
 }

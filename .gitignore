@@ -3,4 +3,5 @@ node_modules/*
 blog/node_modules/*
 mainPage/node_modules/*
 mainPage/package-lock.json
+mainPage/public/javascript/anime.min.js
 archive/*

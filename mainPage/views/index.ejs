@@ -17,7 +17,7 @@
         <li><span><a href="#">Contact Me</a></span></li>
       </ol>
     </div>
-    <div id='myResume' style="font-size:0.8rem; position:absolute; right:0;">
+    <div id='myResume' style="font-size:0.8rem; position:absolute; right:2rem;">
       <span class="card card-1 stacked--left" style="padding:0.5rem;">
         <a href="#" style="text-decoration:none; color:inherit;">My resume</a></span>
     </div>
@@ -32,7 +32,7 @@
 
   <!-- Barra lateral izquierda -->
   <div class="sideStuff" style="position:fixed; left:0px; font-size:15px;">
-    <div id='testRow0' class="sideButtonRow">
+    <div id='giteaRow' class="sideButtonRow">
       <div class="sideButtonLogo">
         <svg xmlns="http://www.w3.org/2000/svg" class="animate-thing" width="24" height="24" viewBox="0 0 24 24"
           stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -49,27 +49,27 @@
         </svg>
       </div>
       <div class="sideButtonText">
-        <span class="letters">Git thing</span>
+        <span class="letters">Gitea</span>
         <span class="line"></span>
       </div>
     </div>
 
-    <div id='testRow1' class="sideButtonRow">
+    <div id='githubRow' class="sideButtonRow">
       <div class="sideButtonLogo">
-        <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        <svg xmlns="http://www.w3.org/2000/svg" class="animate-thing" width="24" height="24" viewBox="0 0 24 24"
           stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-          <polyline points="3 7 12 13 21 7"></polyline>
+          <path
+            d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5">
+          </path>
         </svg>
       </div>
       <div class="sideButtonText">
-        <span class="letters">Mail thing</span>
+        <span class="letters">Github</span>
         <span class="line"></span>
       </div>
     </div>
 
-    <div id='testRow2' class="sideButtonRow">
+    <div id='blogRow' class="sideButtonRow">
       <div class="sideButtonLogo">
         <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
           stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -87,19 +87,47 @@
       </div>
     </div>
 
-    <div id='testRow3' class="sideButtonRow">
+    <div id='mailRow' class="sideButtonRow">
       <div class="sideButtonLogo">
         <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          stroke-width="1" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3">
-          </path>
-          <line x1="8" y1="9" x2="16" y2="9"></line>
-          <line x1="8" y1="13" x2="14" y2="13"></line>
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <polyline points="3 7 12 13 21 7"></polyline>
         </svg>
       </div>
       <div class="sideButtonText">
-        <span class="letters">Message thing</span>
+        <span class="letters">Mail</span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+    <div id='keyRow' class="sideButtonRow">
+      <div class="sideButtonLogo">
+        <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          stroke-width="1" stroke="white" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="8" cy="15" r="4"></circle>
+          <line x1="10.85" y1="12.15" x2="19" y2="4"></line>
+          <line x1="18" y1="5" x2="20" y2="7"></line>
+          <line x1="15" y1="8" x2="17" y2="10"></line>
+        </svg>
+      </div>
+      <div class="sideButtonText">
+        <span class="letters">GPG Key</span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+    <div id='rssRow' class="sideButtonRow">
+      <div class="sideButtonLogo">
+        <svg class="animate-thing" fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+            d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+        </svg>
+      </div>
+      <div class="sideButtonText">
+        <span class="letters">RSS feed</span>
         <span class="line"></span>
       </div>
     </div>
@@ -139,14 +167,13 @@
 
   <!-- Contenedor de los ultimos proyectos en los que he estado trabajando -->
   <div id="container" style="position:relative; width:50em;">
-    <div class="image"
-      style="position:absolute; top: 0; left:0; width:60%; border:2px solid green; border-radius: 0.3em;">
+    <div class="image" style="position:absolute; top: 0; left:0; width:60%; border:2px solid green; ;">
       <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
     </div>
     <div class="imageDescription"
       style="position:absolute; top: 0; right:0; width:45%;border:2px solid red; padding-top:1em;">
       <div class="coolTextContainer"
-        style="border: 1px solid white; text-align:right; border-radius: 0.3em; background-color: var(--our-black); padding:0.3em;">
+        style="border: 1px solid white; text-align:right; background-color: var(--our-black); padding:0.3em;">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nisi
         quis justo fermentum pharetra. Quisque ac pulvinar sapien. Sed
         porta dolor nec ex venenatis feugiat.
@@ -155,7 +182,7 @@
         <span style="color:white;">Lmao Lmeo Lmio Lmoo Lmuo</span>
       </div>
       <div style="text-align: right; padding-top:1.3em;">
-        <span style="border: 1px solid white; border-radius:0.5em; text-align:right; padding:5px;">Learn more</span>
+        <span style="border: 1px solid white;  text-align:right; padding:5px;">Learn more</span>
       </div>
     </div>
   </div>
@@ -168,6 +195,9 @@
   <!--   <circle id="testCirc" cx="100" cy="100" r="100" style="filter: url(#displacementFilter)" fill='white' -->
   <!--     stroke='white' /> -->
   <!-- </svg> -->
+
+  <!-- TODO: Agregar seccion de los ultimos blogs subidos -->
+  <!-- TODO: Agregar aplicación de archivo de blogs y proyectos -->
 
   <script src="/javascripts/anime.min.js"></script>
   <script type="text/javascript" src="/javascripts/script.js"></script>

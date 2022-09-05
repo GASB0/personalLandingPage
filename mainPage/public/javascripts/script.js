@@ -141,6 +141,9 @@ class animatedSurrounding {
     if (!this.animated) {
       this.animated = true;
       this.animation.play();
+      this.animation.finished.then(() => {
+        console.log('The animation of this section has finished');
+      });
     }
   }
 }
@@ -177,9 +180,9 @@ document.querySelectorAll('.sideButtonRow').forEach((elem) => {
     .addEventListener('mouseleave', () => {
       currentSlideButton.reverse();
       currentSlideButton.play();
-      // TODO: Setear la propiedad de visibilidad a hidden cuando se termine de correr la animacion invertida.
-      currentSlideButton.sideButtonAnimation.finished.then(
-        console.log('terminado')
+      currentSlideButton.sideButtonAnimation.finished.then(() => {
+        currentSlideButton.sideButtonRow.querySelector('.sideButtonText').style.visibility = 'hidden';
+      }
       )
     });
 });
