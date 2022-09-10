@@ -227,3 +227,14 @@ anime.timeline({})
     opacity: [0, 1],
     duration: 600,
   })
+
+// code window animation:
+var codeWrapper1 = document.getElementById('codeWindow').querySelector('.codeWindowContent .letters');
+codeWrapper1.innerHTML = codeWrapper1.textContent.replace(/(.)/g, "<span class='code' style=\"\">$&</span>");
+anime({
+  targets: ['.codeWindowContent .letters .code'],
+  opacity: [0, 1],
+  visibility: 'visible',
+  duration: 10,
+  delay: anime.stagger(70),
+})

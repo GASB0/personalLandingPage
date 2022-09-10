@@ -73,24 +73,6 @@
       </div>
     </div>
 
-    <div id='blogRow' class="sideButtonRow">
-      <div class="sideButtonLogo">
-        <svg class="animate-thing" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11">
-          </path>
-          <line x1="8" y1="8" x2="12" y2="8"></line>
-          <line x1="8" y1="12" x2="12" y2="12"></line>
-          <line x1="8" y1="16" x2="12" y2="16"></line>
-        </svg>
-      </div>
-      <div class="sideButtonText">
-        <span class="letters">Blog thing</span>
-        <span class="line"></span>
-      </div>
-    </div>
-
     <div id='mailRow' class="sideButtonRow">
       <div class="sideButtonLogo">
         <a href="" style="color: inherit;">
@@ -175,6 +157,29 @@
     </svg>
   </section>
 
+  <div id="codeWindow">
+    <div class="codeWindowContent" style="border: 1px solid white;">
+      <div style="padding-left:1rem; position:relative;">
+        <div style="margin:3px; font-weight:200;">
+          Python
+        </div>
+        <div style="position:absolute; top:0; right:0; margin:3px; ">
+          <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </div>
+      <hr style="color:white; width:100%;">
+      <div class="letters" style="white-space:pre-wrap; padding-right:4rem;">
+        def funcion(arg):
+        &Tab; return arg+1
+
+        print(funcion(3))
+      </div>
+    </div>
+  </div>
+
   <!-- Contenedor de los ultimos proyectos en los que he estado trabajando -->
   <div id="container" style="position:relative; width:50em;">
     <div class="image" style="position:absolute; top: 0; left:0; width:60%; border:2px solid green; ;">
@@ -196,15 +201,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <svg width="200" height="200" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg"> -->
-  <!--   <filter id="displacementFilter"> -->
-  <!--     <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence" /> -->
-  <!--     <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="G" /> -->
-  <!--   </filter> -->
-  <!--   <circle id="testCirc" cx="100" cy="100" r="100" style="filter: url(#displacementFilter)" fill='white' -->
-  <!--     stroke='white' /> -->
-  <!-- </svg> -->
 
   <!-- TODO: Agregar seccion de los ultimos blogs subidos -->
   <!-- TODO: Agregar aplicación de archivo de blogs y proyectos -->
