@@ -1,3 +1,6 @@
+var TypeIt = require("typeit");
+var anime = require('animejs');
+
 // Blinking cursor animation
 const blinkingObject = document.getElementById('blinkingCursor')
 let showObj = true;
@@ -228,13 +231,9 @@ anime.timeline({})
     duration: 600,
   })
 
-// code window animation:
-var codeWrapper1 = document.getElementById('codeWindow').querySelector('.codeWindowContent .letters');
-codeWrapper1.innerHTML = codeWrapper1.textContent.replace(/(.)/g, "<span class='code' style=\"\">$&</span>");
-anime({
-  targets: ['.codeWindowContent .letters .code'],
-  opacity: [0, 1],
-  visibility: 'visible',
-  duration: 10,
-  delay: anime.stagger(70),
-})
+// Code animation
+new TypeIt("#code", {
+  strings: "print('<a href='www.google.com'>Hello</a> world!')",
+  speed: 75,
+  loop: false,
+}).go();
