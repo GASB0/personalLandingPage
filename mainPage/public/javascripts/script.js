@@ -1,20 +1,11 @@
-var TypeIt = require("typeit");
 var anime = require('animejs');
+var TypeIt = require('typeit');
 
-// Blinking cursor animation
-const blinkingObject = document.getElementById('blinkingCursor')
-let showObj = true;
-setInterval(() => {
-  if (showObj) {
-    blinkingObject.style.color = "transparent";
-    showObj = !showObj;
-  } else {
-    blinkingObject.style.color = "inherit";
-    showObj = !showObj;
-  }
-}, 550);
+// code window animation:
+var titleWrapper = document.getElementById('upper')
+titleWrapper.innerHTML = titleWrapper.textContent.replace(/( {2,})/g, "").replace(/(.)/g, "<div class='titleLetter' style='float: left;'>$&</div>");
 
-// Efecto cuando recien se carga la pagina
+// Page loading animation
 var tl = anime.timeline({ easing: 'easeOutExpo' });
 tl.add({
   targets: '#line',
@@ -40,10 +31,25 @@ tl.add({
   opacity: [0, 1],
   translateY: [30, 0],
   duration: 1000,
+}).finished.then(() => {
+  document.getElementById('upperWrap').style.overflow = 'visible';
+  document.getElementById('upper').addEventListener('mouseenter', () => {
+    if (!testAnim.began || !(testAnim.remaining > 0)) {
+      testAnim.play();
+    }
+  })
 })
-
+var testAnim = anime({
+  autoplay: false,
+  targets: document.querySelectorAll('.titleLetter'),
+  translateY: [
+    { value: '-1em', easing: 'easeOutSine', duration: 250 },
+    { value: '0', easing: 'easeInOutQuad', duration: 500 }
+  ],
+  delay: anime.stagger(50),
+})
 // Animacion de la barra lateral izquierda
-var startupSideButtonAnimation = anime({
+anime({
   targets: ['.animate-thing path', '.animate-thing rect', '.animate-thing line', '.animate-thing polyline', '.animate-thing circle'],
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
@@ -232,8 +238,10 @@ anime.timeline({})
   })
 
 // Code animation
-new TypeIt("#code", {
-  strings: "print('<a href='www.google.com'>Hello</a> world!')",
+var sampleCode = `print('<a href='www.google.com'>Hello</a> world!')`
+var code_animation = new TypeIt("#code", {
+  strings: sampleCode,
   speed: 75,
   loop: false,
-}).go();
+});
+code_animation.go()

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "npx nodemon -w ./package.json -w ./public/ -w ./views/ -w ./routes/ ./bin/www"
   },
   "dependencies": {
     "animejs": "^3.2.1",
@@ -13,7 +14,9 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "katex": "^0.16.2",
     "morgan": "~1.9.1",
+    "nodemon": "^2.0.19",
     "typeit": "^8.7.0"
   }
 }
