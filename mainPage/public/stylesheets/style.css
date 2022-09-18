@@ -22,6 +22,15 @@ body {
   scroll-behavior: smooth;
 }
 
+h1 {
+font-weight:200;
+  font-size:3rem;
+}
+p {
+  font-weight:200;
+  font-size:1.1rem;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -213,4 +222,77 @@ text-align:left;
 #navButtons li a:hover::after,
 #navButtons li a:focus::after{
   transform: translate3d(0, 0, 0);
+}
+
+/* Estilizado para la seccion de las ultimas actualizaciones */
+/* Cortesia de https://codepen.io/Tuna_/pen/KKzXEVO?editors=1100 */
+.container{
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.accordion-item{
+  border-radius: .4rem;
+}
+.accordion-item hr{
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.accordion-link{
+  font-size: 1.6rem;
+  color: rgba(255,255,255,.8);
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.accordion-link h3{
+  font-weight:500;
+  font-size: 20px;
+}
+.accordion-link i{
+  color: #e7d5ff;
+  padding: .5rem;
+}
+.accordion-link ul{
+  display:flex;
+  align-items: flex-end;
+  list-style-type: none;
+  margin-left: 25px;
+}
+.accordion-link li{
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 0 1px 5px;
+}
+.accordion-link div{
+  display: flex;
+}
+.accordion-link .ion-md-arrow-down{
+  display: none;
+}
+.answer{
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--our-black);
+  transition: max-height 400ms;
+}
+.answer p{
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 2rem;
+}
+
+/* Esta es la parte que se encarga de mostrar/esconder las secciones */
+.accordion-item:target .answer{ 
+  max-height: 20rem;
+}
+.accordion-item:target .accordion-link .ion-md-arrow-forward{
+  display: none;
+}
+.accordion-item:target .accordion-link .ion-md-arrow-down{
+  display: flex;
 }

@@ -13,8 +13,9 @@
     <div id='navButtons' style="font-size:0.8rem; z-index:10; position:absolute; top:0;left:0;">
       <ol>
         <li><span><a href="#aboutThisPage">About</a></span></li>
-        <li><span><a href="#stuffIMade">Stuff I've made</a></span></li>
-        <li><span><a href="#">Contact Me</a></span></li>
+        <li><span><a href="#stuffIKnow">Stuff I know about</a></span></li>
+        <!-- <li><span><a href="#">Contact Me</a></span></li> -->
+        <li><span><a href="#blogUpdatesSection">Blog Updates</a></span></li>
       </ol>
     </div>
     <div id='myResume' style="font-size:0.8rem; position:absolute; right:2rem;">
@@ -129,7 +130,7 @@
   <header id="presentation">
     <div id="upperWrap" style="display:flex; justify-content:center;">
       <div id="upper" style="overflow:visible;">
-        GASB0's &nbsp; webcorner_
+        GASB0's &nbsp; webcorner
       </div>
     </div>
     <div id="line"></div>
@@ -144,62 +145,150 @@
       <polygon class="svgContainer" fill='none' stroke='white' />
       <foreignObject x="0" y="0" width="100%" height="100%">
         <div class="secContent" xmlns="http://www.w3.org/1999/xhtml">
-          <div style="font-size:14px; padding:10%">
+          <div style="font-size:14px; padding:7%">
             <!--- wtf!? el padding-top arregla el tamano del recuadro-->
             <h1>About</h1>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed mollis mollis mi ut ultricies. Nullam magna ipsum,
-            porta vel dui convallis, rutrum imperdiet eros. Aliquam
-            erat volutpat.
+            <p>
+              Hello, I am GASB0, the webmaster of this site. I like the internet,
+              programming, maths, electronics, arts in general (specially music and fighting).
+              My favorite form of communication is via <strong>email</strong>, so feel free
+              to say hello after passing by.
+            </p>
+            <p>
+              The main purpose of this site is to serve as a portfolio and as a
+              personal portal in which I'm going to be writting about stuff I
+              find interesting.
+            </p>
+            <p>
+              In case you haven't noticed yet, this site uses javascript for
+              all its animations, so make sure to allow its execution in this
+              tab so all the fancy effects work properly.
+            </p>
           </div>
         </div>
       </foreignObject>
     </svg>
   </section>
 
-  <div id="codeWindow1">
-    <div class="codeWindowContent" style="border: 1px solid white; border-radius:0.5rem; width:15rem;">
-      <div style="padding-left:1rem; position:relative;">
-        <div style="margin:3px; font-weight:200;">
-          Python
+  <section id="stuffIKnow">
+    <div class="container">
+      <h1> Stuff I know about </h1>
+      <div id="codeWindow1">
+        <div class="codeWindowContent" style="border: 1px solid white; border-radius:0.5rem; width:15rem;">
+          <div style="padding-left:1rem; position:relative;">
+            <div style="margin:3px; font-weight:200;">
+              Python
+            </div>
+            <div style="position:absolute; top:0; right:0; margin:3px; ">
+              <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </div>
+          <hr style="color:white; width:100%;">
+          <div id='code' class="letters"
+            style="white-space:pre-wrap; margin-left:2rem; margin-right:2rem; margin-bottom:0.8rem;">
+          </div>
         </div>
-        <div style="position:absolute; top:0; right:0; margin:3px; ">
-          <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </div>
-      </div>
-      <hr style="color:white; width:100%;">
-      <div id='code' class="letters"
-        style="white-space:pre-wrap; margin-left:2rem; margin-right:2rem; margin-bottom:0.8rem;">
       </div>
     </div>
-  </div>
-
-  <!-- Contenedor de los ultimos proyectos en los que he estado trabajando -->
-  <div id="container" style="position:relative; width:50em;">
-    <div class="image" style="position:absolute; top: 0; left:0; width:60%; border:2px solid green; ;">
-      <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
-    </div>
-    <div class="imageDescription"
-      style="position:absolute; top: 0; right:0; width:45%;border:2px solid red; padding-top:1em;">
-      <div class="coolTextContainer"
-        style="border: 1px solid white; text-align:right; background-color: var(--our-black); padding:0.3em;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a nisi
-        quis justo fermentum pharetra. Quisque ac pulvinar sapien. Sed
-        porta dolor nec ex venenatis feugiat.
-      </div>
-      <div class="coolButtonsContainer" style="text-align: right; padding-top:1em;">
-        <span style="color:white;">Lmao Lmeo Lmio Lmoo Lmuo</span>
-      </div>
-      <div style="text-align: right; padding-top:1.3em;">
-        <span style="border: 1px solid white;  text-align:right; padding:5px;">Learn more</span>
-      </div>
-    </div>
-  </div>
+  </section>
 
   <!-- TODO: Agregar seccion de los ultimos blogs subidos -->
+  <section id="blogUpdatesSection">
+    <div class="container">
+      <h1>Recent updates</h1>
+      <div class="accordion">
+        <div class="accordion-item" id="lastestUpdate">
+          <a class="accordion-link" href="#lastestUpdate">
+            <div class="flex">
+              <h3>Title 1</h3>
+              <ul>
+                <li>#tag1</li>
+                <li>#tag2</li>
+                <li>#tag3</li>
+                <li>#tag4</li>
+                <li>#tag5</li>
+              </ul>
+            </div>
+
+            <i class="ion-md-arrow-forward">
+              <!-- Right arrow -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <line x1="15" y1="16" x2="19" y2="12"></line>
+                <line x1="15" y1="8" x2="19" y2="12"></line>
+              </svg>
+            </i>
+            <i class="ion-md-arrow-down">
+              <!-- Down arrow -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-down" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="16" y1="15" x2="12" y2="19"></line>
+                <line x1="8" y1="15" x2="12" y2="19"></line>
+              </svg>
+            </i>
+          </a>
+          <div class="answer">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+          </div>
+          <hr>
+        </div>
+        <div class="accordion-item" id="beforeLatestUpdate">
+          <a class="accordion-link" href="#beforeLatestUpdate">
+            <div class="flex">
+              <h3>Title 2</h3>
+              <ul>
+                <li>#Tool1</li>
+                <li>#Tool2</li>
+                <li>#Tool3</li>
+                <li>#Tool4</li>
+                <li>#Tool5</li>
+              </ul>
+            </div>
+            <i class="ion-md-arrow-forward">
+              <!-- Right arrow -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <line x1="15" y1="16" x2="19" y2="12"></line>
+                <line x1="15" y1="8" x2="19" y2="12"></line>
+              </svg>
+            </i>
+            <i class="ion-md-arrow-down">
+              <!-- Down arrow -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-down" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="16" y1="15" x2="12" y2="19"></line>
+                <line x1="8" y1="15" x2="12" y2="19"></line>
+              </svg>
+            </i>
+          </a>
+          <div class="answer">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TODO: Agregar aplicación de archivo de blogs y proyectos -->
 
   <script type="text/javascript" src="/javascripts/script2.js"></script>

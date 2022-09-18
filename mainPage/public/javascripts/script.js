@@ -1,7 +1,7 @@
 var anime = require('animejs');
 var TypeIt = require('typeit');
 
-// code window animation:
+// Title animation:
 var titleWrapper = document.getElementById('upper')
 titleWrapper.innerHTML = titleWrapper.textContent.replace(/( {2,})/g, "").replace(/(.)/g, "<div class='titleLetter' style='float: left;'>$&</div>");
 
@@ -27,19 +27,27 @@ tl.add({
   duration: 600,
 }, "-=600").add({
   delay: 2000,
-  targets: '#sampleText1',
-  opacity: [0, 1],
-  translateY: [30, 0],
+  targets: '#lower',
+  opacity: [1, 0],
+  translateY: [0, 30],
   duration: 1000,
 }).finished.then(() => {
   document.getElementById('upperWrap').style.overflow = 'visible';
   document.getElementById('upper').addEventListener('mouseenter', () => {
-    if (!testAnim.began || !(testAnim.remaining > 0)) {
-      testAnim.play();
+    if (!pageTitleOnHoverAnimation.began || !(pageTitleOnHoverAnimation.remaining > 0)) {
+      pageTitleOnHoverAnimation.play();
     }
   })
+  document.getElementById('lower').textContent = '';
+  document.getElementById('lower').style.opacity = 1;
+  document.getElementById('lower').style.transform = "translateY(0)";
+  new TypeIt("#lower", {
+    strings: ["Scroll down for the cool stuff"],
+    speed: 100,
+    loop: false,
+  }).go();
 })
-var testAnim = anime({
+var pageTitleOnHoverAnimation = anime({
   autoplay: false,
   targets: document.querySelectorAll('.titleLetter'),
   translateY: [
@@ -164,17 +172,25 @@ window.onresize = () => {
   })
 };
 
-// Centralizacion de las secciones del documento
-for (i = 0; i < document.getElementsByTagName('section').length; i++) {
-  centralizeSection(document.getElementsByTagName('section')[i]);
-}
+// Centralizacion del about
+centralizeSection(document.getElementById('aboutThisPage'));
 
 // Centralizacion los elementos laterales
-for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
-  thingToCentralize = document.querySelectorAll('.sideStuff')[i];
-  padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
-  thingToCentralize.style.bottom = `${padding}px`;
-}
+window.addEventListener('load', () => {
+  for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
+    thingToCentralize = document.querySelectorAll('.sideStuff')[i];
+    padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
+    thingToCentralize.style.bottom = `${padding}px`;
+  }
+})
+window.addEventListener('resize', () => {
+  for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
+    thingToCentralize = document.querySelectorAll('.sideStuff')[i];
+    padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
+    thingToCentralize.style.bottom = `${padding}px`;
+  }
+})
+
 
 // Animacion de los botones laterales
 document.querySelectorAll('.sideButtonRow').forEach((elem) => {
@@ -196,8 +212,8 @@ document.querySelectorAll('.sideButtonRow').forEach((elem) => {
     });
 });
 
-// Animacion de las secciones
-document.querySelectorAll('section')
+// Animacion de las secciones rodeadas
+document.querySelectorAll('#aboutThisPage')
   .forEach((elem) => {
     var section = new animatedSurrounding(elem);
     document.addEventListener('scroll', (ev) => {
@@ -238,7 +254,7 @@ anime.timeline({})
   })
 
 // Code animation
-var sampleCode = `print('<a href='www.google.com'>Hello</a> world!')`
+var sampleCode = `print('Hello world!')`
 var code_animation = new TypeIt("#code", {
   strings: sampleCode,
   speed: 75,
