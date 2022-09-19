@@ -1,5 +1,6 @@
 var anime = require('animejs');
 var TypeIt = require('typeit');
+var katex = require('katex');
 
 // Title animation:
 var titleWrapper = document.getElementById('upper')
@@ -283,15 +284,15 @@ var stuffIKnowAnimation = anime.timeline({ autoplay: false, loop: false, }).add(
     delay: anime.stagger(400),
     complete: () => {
       code_animation.go();
-      document.querySelector('#sampleCode2').innerHTML = mathContent;
-      anime({
-        targets: document.querySelector('#sampleCode2 semantics mrow').children,
-        easing: 'easeInOutSine',
-        opacity: [0, 1],
-        translateY: ['0.5em', '0'],
-        duration: 500,
-        delay: anime.stagger(200),
-      })
+      // document.querySelector('#sampleCode2').innerHTML = mathContent;
+      // anime({
+      //   targets: document.querySelector('#sampleCode2 semantics mrow').children,
+      //   easing: 'easeInOutSine',
+      //   opacity: [0, 1],
+      //   translateY: ['0.5em', '0'],
+      //   duration: 500,
+      //   delay: anime.stagger(200),
+      // })
     }
   })
 
@@ -303,26 +304,6 @@ var skillsEvListenerCB = () => {
 }
 document.addEventListener('scroll', skillsEvListenerCB)
 
-var mathContent = `
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-<semantics>
-<mrow>
-<msup>
-<mi>e</mi>
-<mrow>
-<mi>π</mi>
-<mi>i</mi>
-</mrow>
-</msup>
-<mo>+</mo>
-<mn>1</mn>
-<mo>=</mo>
-<mn>0</mn>
-</mrow>
-<annotation encoding="application/x-tex">e^{\pi i} + 1 = 0</annotation>
-</semantics>
-</math>
-`
 
 // Animaciones para la seccion de updates de blogs
 // TODO: Arreglar esta animacion.
@@ -344,3 +325,9 @@ var blogEvListenerCB = () => {
 }
 
 document.addEventListener('scroll', blogEvListenerCB)
+
+// Math rendering
+var math = document.getElementsByClassName('math')
+for (var i = 0; i < math.length; i++) {
+  katex.render(math[i].textContent, math[i], { displayMode: true, output: 'html' });
+}

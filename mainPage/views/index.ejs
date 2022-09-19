@@ -6,6 +6,7 @@
     <%= title %>
   </title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="/katex/dist/katex.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -239,7 +240,7 @@
           </div>
 
           <div id="codeWindow2" class="codeWindow" style="left:2rem; margin-top:0;">
-            <div class="codeWindowContent" style="min-height:11rem; min-width:11rem">
+            <div class="codeWindowContent">
               <div style="padding-left:1rem; position:relative;">
                 <div style="margin:3px; font-weight:200;">
                   LaTeX
@@ -253,7 +254,7 @@
               </div>
               <hr>
               <div id="sampleCode2" class='code' style="font-size:1rem;">
-                <!-- lmao -->
+                <span class='math'>\int f(x) \; dx = F(x)</span>
               </div>
             </div>
           </div>
