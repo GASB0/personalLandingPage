@@ -171,34 +171,122 @@
   </section>
 
   <section id="stuffIKnow">
-    <div class="container">
-      <h1> Stuff I know about </h1>
-      <div id="codeWindow1">
-        <div class="codeWindowContent" style="border: 1px solid white; border-radius:0.5rem; width:15rem;">
-          <div style="padding-left:1rem; position:relative;">
-            <div style="margin:3px; font-weight:200;">
-              Python
-            </div>
-            <div style="position:absolute; top:0; right:0; margin:3px; ">
-              <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </div>
+    <h1> Stuff I know about </h1>
+    <div class="container" style="position:relative;">
+      <div style="display:flex; flex-direction:row; column-gap: 3.5em; flex-wrap:wrap;">
+        <div style="width:12rem;">
+          <h2>Web dev</h2>
+          <div class="skillsList">
+            <h3>Frontend</h3>
+            <ul id="frontendTech">
+              <li><a href="">Javascript</a></li>
+              <li><a href="">CSS</a></li>
+              <li><a href="">HTML</a></li>
+              <li><a href="">ReactJS</a></li>
+              <li><a href="">Bootstrap</a></li>
+            </ul>
           </div>
-          <hr style="color:white; width:100%;">
-          <div id='code' class="letters"
-            style="white-space:pre-wrap; margin-left:2rem; margin-right:2rem; margin-bottom:0.8rem;">
+          <div class="skillsList">
+            <h3>Backend</h3>
+            <ul>
+              <li><a href="">Python</a></li>
+              <li><a href="">NodeJS</a></li>
+              <li><a href="">POSTGRESQL</a></li>
+            </ul>
           </div>
         </div>
+
+        <div style="width:12rem;">
+          <h2>General</h2>
+          <div class="skillsList">
+            <h3>Embedded</h3>
+            <ul>
+              <li><a href="">Basics of C/C++</a></li>
+              <li><a href="">Basics of VHDL</a></li>
+              <li><a href="">Microchip&#8482; MCUs</a></li>
+            </ul>
+          </div>
+          <div class="skillsList">
+            <h3>Misc</h3>
+            <ul>
+              <li><a href="">Linux Systems</a></li>
+              <li><a href="">Bash scripting</a></li>
+              <li><a href="">LaTeX</a></li>
+              <li><a href="">Circuit desing</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div id="codeWindow1" class="codeWindow">
+            <div class="codeWindowContent">
+              <div style="padding-left:1rem; position:relative;">
+                <div style="margin:3px; font-weight:200;">
+                  Python
+                </div>
+                <div style="position:absolute; top:0; right:0; margin:3px; ">
+                  <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+              </div>
+              <hr>
+              <div id="sampleCode1" class='code'>
+                Lmao, text. Esto verdaderamente que es de gangsters
+              </div>
+            </div>
+          </div>
+
+          <div id="codeWindow2" class="codeWindow" style="left:2rem; margin-top:0;">
+            <div class="codeWindowContent" style="min-height:11rem; min-width:11rem">
+              <div style="padding-left:1rem; position:relative;">
+                <div style="margin:3px; font-weight:200;">
+                  LaTeX
+                </div>
+                <div style="position:absolute; top:0; right:0; margin:3px; ">
+                  <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+              </div>
+              <hr>
+              <div id="sampleCode2" class='code' style="font-size:1rem;">
+                <!-- lmao -->
+              </div>
+            </div>
+          </div>
+
+
+          <div id="codeWindow3" class="codeWindow" style="left:-2rem; margin-top:0;">
+            <div class="codeWindowContent">
+              <div style="padding-left:1rem; position:relative;">
+                <div style="margin:3px; font-weight:200;">
+                  HTML
+                </div>
+                <div style="position:absolute; top:0; right:0; margin:3px; ">
+                  <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+              </div>
+              <hr>
+              <div id="sampleCode3" class='code' style="font-size:1rem;">
+                More cool stuff for all that is here
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
   </section>
 
   <!-- TODO: Agregar seccion de los ultimos blogs subidos -->
   <section id="blogUpdatesSection">
+    <h1>Recent updates</h1>
     <div class="container">
-      <h1>Recent updates</h1>
       <div class="accordion">
         <div class="accordion-item" id="lastestUpdate">
           <a class="accordion-link" href="#lastestUpdate">

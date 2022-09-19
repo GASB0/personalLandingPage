@@ -26,11 +26,11 @@ tl.add({
   easing: "easeOutExpo",
   duration: 600,
 }, "-=600").add({
-  delay: 2000,
+  delay: 2300,
   targets: '#lower',
   opacity: [1, 0],
   translateY: [0, 30],
-  duration: 1000,
+  duration: 2000,
 }).finished.then(() => {
   document.getElementById('upperWrap').style.overflow = 'visible';
   document.getElementById('upper').addEventListener('mouseenter', () => {
@@ -43,7 +43,7 @@ tl.add({
   document.getElementById('lower').style.transform = "translateY(0)";
   new TypeIt("#lower", {
     strings: ["Scroll down for the cool stuff"],
-    speed: 100,
+    speed: 60,
     loop: false,
   }).go();
 })
@@ -159,7 +159,6 @@ class animatedSurrounding {
       this.animated = true;
       this.animation.play();
       this.animation.finished.then(() => {
-        console.log('The animation of this section has finished');
       });
     }
   }
@@ -183,6 +182,7 @@ window.addEventListener('load', () => {
     thingToCentralize.style.bottom = `${padding}px`;
   }
 })
+
 window.addEventListener('resize', () => {
   for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
     thingToCentralize = document.querySelectorAll('.sideStuff')[i];
@@ -254,10 +254,93 @@ anime.timeline({})
   })
 
 // Code animation
-var sampleCode = `print('Hello world!')`
-var code_animation = new TypeIt("#code", {
-  strings: sampleCode,
+var code_animation = new TypeIt("#sampleCode1", {
   speed: 75,
   loop: false,
 });
-code_animation.go()
+
+// Skills animation
+var stuffIKnowAnimation = anime.timeline({ autoplay: false, loop: false, }).add({
+  targets: [document.querySelectorAll('#stuffIKnow .container h2'),
+  document.querySelectorAll('#stuffIKnow .container h3'),
+  document.querySelectorAll('#stuffIKnow .container .skillsList')],
+  easing: 'easeInOutSine',
+  opacity: [0, 1],
+  duration: 1000,
+}).add({
+  targets: document.querySelectorAll('.skillsList ul li'),
+  easing: 'easeInOutSine',
+  opacity: [0, 1],
+  duration: 500,
+  delay: anime.stagger(140),
+}, '-=750')
+  .add({
+    targets: document.querySelectorAll('.codeWindow'),
+    easing: 'spring(1, 60, 10, 0)',
+    translateX: ['4em', '0'],
+    opacity: [0, 1],
+    duration: 1000,
+    delay: anime.stagger(400),
+    complete: () => {
+      code_animation.go();
+      document.querySelector('#sampleCode2').innerHTML = mathContent;
+      anime({
+        targets: document.querySelector('#sampleCode2 semantics mrow').children,
+        easing: 'easeInOutSine',
+        opacity: [0, 1],
+        translateY: ['0.5em', '0'],
+        duration: 500,
+        delay: anime.stagger(200),
+      })
+    }
+  })
+
+var skillsEvListenerCB = () => {
+  if (isInViewport(document.getElementById('stuffIKnow'))) {
+    stuffIKnowAnimation.play();
+    document.removeEventListener('scroll', skillsEvListenerCB)
+  }
+}
+document.addEventListener('scroll', skillsEvListenerCB)
+
+var mathContent = `
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<semantics>
+<mrow>
+<msup>
+<mi>e</mi>
+<mrow>
+<mi>π</mi>
+<mi>i</mi>
+</mrow>
+</msup>
+<mo>+</mo>
+<mn>1</mn>
+<mo>=</mo>
+<mn>0</mn>
+</mrow>
+<annotation encoding="application/x-tex">e^{\pi i} + 1 = 0</annotation>
+</semantics>
+</math>
+`
+
+// Animaciones para la seccion de updates de blogs
+// TODO: Arreglar esta animacion.
+// Por alguna razon esta seccion aparece por un instante antes de que
+// aparezca con la animacion deseada cuando uno de los blogs esta seleccionado.
+var blogUpdatesAnimation = anime({
+  targets: document.querySelectorAll('#blogUpdatesSection .container'),
+  opacity: [0, 1],
+  translateY: ['8em', '0'],
+  easing: 'easeInOutExpo',
+  duration: 1700,
+})
+
+var blogEvListenerCB = () => {
+  if (isInViewport(document.getElementById('blogUpdatesSection'))) {
+    blogUpdatesAnimation.play();
+    document.removeEventListener('scroll', blogEvListenerCB)
+  }
+}
+
+document.addEventListener('scroll', blogEvListenerCB)

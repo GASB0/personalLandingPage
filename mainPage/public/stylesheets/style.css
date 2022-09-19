@@ -44,7 +44,6 @@ section{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   text-align: left;
   width:70%;
   height: 100vh;
@@ -295,4 +294,80 @@ text-align:left;
 }
 .accordion-item:target .accordion-link .ion-md-arrow-down{
   display: flex;
+}
+
+/* Configuracion para el estilo de las listas con las tecnologias que conozco */
+.container h2 {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+.skillsList h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+.skillsList ul {
+  width:100%;
+  list-style-type: none;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+ 
+.skillsList li {
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  border-bottom: 1px solid #ccc;
+  font-weight: 200;
+}
+ 
+.skillsList li:last-child {
+  border: none;
+}
+ 
+.skillsList li a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: font-weight 0.3s ease;
+}
+ 
+.skillsList li a:hover {
+  font-weight:600;
+}
+
+/* Estilos para las ventanas de codigo */
+.codeWindow{
+    position:relative;
+    align-self:flex-start;
+}
+
+.codeWindow:not(:last-child){
+    margin-bottom:1rem;
+}
+
+.codeWindow .codeWindowContent{
+    border: 1px solid white;
+    border-radius:0.5rem;
+    max-width:15rem;
+    min-width:7rem;
+}
+
+.codeWindow  .codeWindowContent hr {
+    color:white;
+    width:100%;
+}
+
+.codeWindow .codeWindowContent .code{
+    margin-left:2rem;
+    margin-right:2rem;
+    margin-bottom:0.8rem;
+    font-size:0.8rem;
+    font-weight:200;
 }
