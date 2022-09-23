@@ -7,6 +7,7 @@
   </title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link href="/katex/dist/katex.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/styles/github-dark.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -233,8 +234,11 @@
                 </div>
               </div>
               <hr>
-              <div id="sampleCode1" class='code'>
-                Lmao, text. Esto verdaderamente que es de gangsters
+              <div class="code python" id="sampleCode1">
+                print('hello world')
+                def funcion(arg):
+                &nbsp;&nbsp;return arg+1
+                funcion(1) # => 2
               </div>
             </div>
           </div>
@@ -253,7 +257,7 @@
                 </div>
               </div>
               <hr>
-              <div id="sampleCode2" class='code' style="font-size:1rem;">
+              <div id="sampleCode2" style="font-size:1rem;">
                 <span class='math'>\int f(x) \; dx = F(x)</span>
               </div>
             </div>
@@ -264,7 +268,7 @@
             <div class="codeWindowContent">
               <div style="padding-left:1rem; position:relative;">
                 <div style="margin:3px; font-weight:200;">
-                  HTML
+                  Javascript
                 </div>
                 <div style="position:absolute; top:0; right:0; margin:3px; ">
                   <svg fill="none" stroke="currentColor" width='24' height='24' viewBox="0 0 24 24"
@@ -274,14 +278,19 @@
                 </div>
               </div>
               <hr>
-              <div id="sampleCode3" class='code' style="font-size:1rem;">
-                More cool stuff for all that is here
+              <div class="code javascript" id='sampleCode3'>
+                $(document).ready(function() {
+                &nbsp;&nbsp;$('pre code').each(function(i, block) {
+                &nbsp;&nbsp;&nbsp;&nbsp;hljs.highlightBlock(block);
+                &nbsp;&nbsp;});
+                });
               </div>
             </div>
           </div>
 
         </div>
       </div>
+    </div>
   </section>
 
   <!-- TODO: Agregar seccion de los ultimos blogs subidos -->

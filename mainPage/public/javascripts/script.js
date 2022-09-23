@@ -1,10 +1,9 @@
 var anime = require('animejs');
 var TypeIt = require('typeit');
-var katex = require('katex');
 
 // Title animation:
 var titleWrapper = document.getElementById('upper')
-titleWrapper.innerHTML = titleWrapper.textContent.replace(/( {2,})/g, "").replace(/(.)/g, "<div class='titleLetter' style='float: left;'>$&</div>");
+titleWrapper.innerHTML = titleWrapper.textContent.trim().replace(/(.)/g, "<div class='titleLetter' style='float: left;'>$&</div>");
 
 // Page loading animation
 var tl = anime.timeline({ easing: 'easeOutExpo' });
@@ -255,7 +254,7 @@ anime.timeline({})
   })
 
 // Code animation
-var code_animation = new TypeIt("#sampleCode1", {
+var code_animation = new TypeIt("#sampleCode3", {
   speed: 75,
   loop: false,
 });
@@ -284,20 +283,11 @@ var stuffIKnowAnimation = anime.timeline({ autoplay: false, loop: false, }).add(
     delay: anime.stagger(400),
     complete: () => {
       code_animation.go();
-      // document.querySelector('#sampleCode2').innerHTML = mathContent;
-      // anime({
-      //   targets: document.querySelector('#sampleCode2 semantics mrow').children,
-      //   easing: 'easeInOutSine',
-      //   opacity: [0, 1],
-      //   translateY: ['0.5em', '0'],
-      //   duration: 500,
-      //   delay: anime.stagger(200),
-      // })
     }
   })
 
 var skillsEvListenerCB = () => {
-  if (isInViewport(document.getElementById('stuffIKnow'))) {
+  if (isInViewport(document.querySelector('#stuffIKnow'))) {
     stuffIKnowAnimation.play();
     document.removeEventListener('scroll', skillsEvListenerCB)
   }
@@ -325,9 +315,3 @@ var blogEvListenerCB = () => {
 }
 
 document.addEventListener('scroll', blogEvListenerCB)
-
-// Math rendering
-var math = document.getElementsByClassName('math')
-for (var i = 0; i < math.length; i++) {
-  katex.render(math[i].textContent, math[i], { displayMode: true, output: 'html' });
-}

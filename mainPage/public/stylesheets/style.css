@@ -355,8 +355,7 @@ text-align:left;
 .codeWindow .codeWindowContent{
     border: 1px solid white;
     border-radius:0.5rem;
-    max-width:15rem;
-    min-width:7rem;
+    min-width:10rem;
 }
 
 .codeWindow  .codeWindowContent hr {
@@ -370,4 +369,5 @@ text-align:left;
     margin-bottom:0.8rem;
     font-size:0.8rem;
     font-weight:200;
+    white-space:pre;
 }

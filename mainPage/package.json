@@ -13,9 +13,11 @@
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "highlight.js": "^11.6.0",
     "http-errors": "~1.6.3",
     "katex": "^0.16.2",
     "morgan": "~1.9.1",
+    "node-html-parser": "^6.1.0",
     "nodemon": "^2.0.19",
     "typeit": "^8.7.0"
   }
