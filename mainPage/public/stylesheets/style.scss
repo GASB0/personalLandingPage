@@ -1,3 +1,5 @@
+@use "sass:math";
+
 * {
   scroll-behavior: smooth;
   box-sizing: border-box;
@@ -17,6 +19,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex-wrap:wrap;
   align-items: center;
   justify-content: center;
   scroll-behavior: smooth;
@@ -46,7 +49,8 @@ section{
   justify-content: center;
   text-align: left;
   width:70%;
-  height: 100vh;
+  /* min-height: 100vh; */
+  height:100vh;
 }
 
 /* Estilo para la barra de navegacion */
@@ -89,24 +93,28 @@ nav ol li span a:hover{
 .sideButtonRow{
 text-align:left;
 }
+
 .sideButtonLogo{
   display: inline-block;
   vertical-align:middle;
 }
+
 .sideButtonText{
   display: inline-block;
   vertical-align:middle;
-}
-.sideButtonText .letter {
-  display: inline-block;
-  line-height: 1em;
-}
-.sideButtonText .line{
-  opacity: 0;
-  position: absolute;
-  height: 1em;
-  width: 3px;
-  background-color: #fff;
+
+  .letter {
+    display: inline-block;
+    line-height: 1em;
+  }
+
+  .line{
+    opacity: 0;
+    position: absolute;
+    height: 1em;
+    width: 3px;
+    background-color: #fff;
+  }
 }
 
 /* Animacion del inicio */
@@ -140,22 +148,23 @@ text-align:left;
     border-radius: 0px;
 }
 .card-1 .content { /* Primer layer de la carta */
-    background-color: var(--our-black) !important;            
-    border-radius: 0px;
-}
-.card-1:before { /* Segundo layer de la carta */
+  background-color: var(--our-black) !important;            
+  border-radius: 0px;
+
+  &:before { /* Segundo layer de la carta */
     background-color: var(--our-black) !important;
-}
-.card-1:after { /* Tercer layer de la carta */
+  }
+  &:after { /* Tercer layer de la carta */
     background-color: white !important;
+  }
 }
 
 [class*='stacked--'] {
-    position: relative;
-    transition: transform var(--transition-time) ease-in-out;
-    will-change: transform;
-}
-[class*='stacked--']:before, [class*='stacked--']:after {
+  position: relative;
+  transition: transform var(--transition-time) ease-in-out;
+  will-change: transform;
+
+  &:before, &:after {
     content: '';
     position: absolute;
     top: 0;
@@ -165,9 +174,11 @@ text-align:left;
     background-color: currentColor;
     transition: transform var(--transition-time) ease-in-out;
     will-change: transform;
+  }
+
+  &:before { z-index: -1; }
+  &:after { z-index: -2; }
 }
-[class*='stacked--']:before { z-index: -1; }
-[class*='stacked--']:after { z-index: -2; }
 
 .stacked--left:before, .stacked--left:after {
     transform-origin: right center;
@@ -214,7 +225,6 @@ text-align:left;
 }
 
 #navButtons li a::after {
-  opacity 1;
   transform: translate3d(100%, 0, 0);
 }
 
@@ -231,12 +241,14 @@ text-align:left;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
+
 .accordion-item{
   border-radius: .4rem;
+  hr{
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
 }
-.accordion-item hr{
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
+
 .accordion-link{
   font-size: 1.6rem;
   color: rgba(255,255,255,.8);
@@ -246,54 +258,62 @@ text-align:left;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  h3{
+    font-weight:500;
+    font-size: 20px;
+  }
+  i{
+    color: #e7d5ff;
+    padding: .5rem;
+  }
+  ul{
+    display:flex;
+    align-items: flex-end;
+    list-style-type: none;
+    margin-left: 25px;
+  }
+  li{
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 0 0 1px 5px;
+  }
+  div{
+    display: flex;
+  }
+  .ion-md-arrow-down{
+    display: none;
+  }
 }
-.accordion-link h3{
-  font-weight:500;
-  font-size: 20px;
-}
-.accordion-link i{
-  color: #e7d5ff;
-  padding: .5rem;
-}
-.accordion-link ul{
-  display:flex;
-  align-items: flex-end;
-  list-style-type: none;
-  margin-left: 25px;
-}
-.accordion-link li{
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
-  padding: 0 0 1px 5px;
-}
-.accordion-link div{
-  display: flex;
-}
-.accordion-link .ion-md-arrow-down{
-  display: none;
-}
+
 .answer{
   max-height: 0;
   overflow: hidden;
   position: relative;
   background-color: var(--our-black);
   transition: max-height 400ms;
-}
-.answer p{
-  color: #fff;
-  font-size: 0.9rem;
-  padding: 2rem;
+
+  p{
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 2rem;
+  }
 }
 
 /* Esta es la parte que se encarga de mostrar/esconder las secciones */
-.accordion-item:target .answer{ 
-  max-height: 20rem;
-}
-.accordion-item:target .accordion-link .ion-md-arrow-forward{
-  display: none;
-}
-.accordion-item:target .accordion-link .ion-md-arrow-down{
-  display: flex;
+.accordion-item{
+  &:target{
+    .answer{ 
+      max-height: 20rem;
+    }
+    .accordion-link{
+      .ion-md-arrow-forward{
+        display: none;
+      }
+      .ion-md-arrow-down{
+        display: flex;
+      }
+    }
+  }
 }
 
 /* Configuracion para el estilo de las listas con las tecnologias que conozco */
@@ -303,71 +323,71 @@ text-align:left;
   font-weight: 300;
 }
 
-.skillsList h3 {
-  margin: 0;
-  padding: 0;
-  font-weight: 300;
-}
+.skillsList {
+  h3 {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+  }
 
-.skillsList ul {
-  width:100%;
-  list-style-type: none;
-  display:flex;
-  flex-direction:column;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-}
- 
-.skillsList li {
-  display:flex;
-  flex-direction:row;
-  justify-content:center;
-  border-bottom: 1px solid #ccc;
-  font-weight: 200;
-}
- 
-.skillsList li:last-child {
-  border: none;
-}
- 
-.skillsList li a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: font-weight 0.3s ease;
-}
- 
-.skillsList li a:hover {
-  font-weight:600;
+  ul {
+    width:100%;
+    list-style-type: none;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    border-bottom: 1px solid #ccc;
+    font-weight: 200;
+
+    &:last-child {
+      border: none;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: font-weight 0.3s ease;
+      &:hover{
+        font-weight:600;
+      }
+    }
+  }
 }
 
 /* Estilos para las ventanas de codigo */
 .codeWindow{
-    position:relative;
-    align-self:flex-start;
-}
+  position:relative;
+  align-self:flex-start;
 
-.codeWindow:not(:last-child){
+  :not(:last-child){
     margin-bottom:1rem;
-}
+  }
 
-.codeWindow .codeWindowContent{
+  .codeWindowContent{
     border: 1px solid white;
     border-radius:0.5rem;
     min-width:10rem;
-}
 
-.codeWindow  .codeWindowContent hr {
-    color:white;
-    width:100%;
-}
+    hr {
+      color:white;
+      width:100%;
+    }
 
-.codeWindow .codeWindowContent .code{
-    margin-left:2rem;
-    margin-right:2rem;
-    margin-bottom:0.8rem;
-    font-size:0.8rem;
-    font-weight:200;
-    white-space:pre;
+    .code{
+      margin-left:2rem;
+      margin-right:2rem;
+      margin-bottom:0.8rem;
+      font-size:0.8rem;
+      font-weight:200;
+      white-space:pre;
+    }
+  }
 }
