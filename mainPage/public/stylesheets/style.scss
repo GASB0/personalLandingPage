@@ -22,7 +22,6 @@ body {
   flex-wrap:wrap;
   align-items: center;
   justify-content: center;
-  scroll-behavior: smooth;
 }
 
 h1 {
@@ -398,7 +397,7 @@ text-align:left;
 $duration: 0.8s;
 $delay: 0.2s;
 $color: var(--our-black);
-$unhoveredCardSize: 185px;
+$unhoveredCardSize: 10rem;
 
 /**
 * CARD
@@ -406,7 +405,7 @@ $unhoveredCardSize: 185px;
 
 .card {
   position: relative;
-  width:250px;
+  max-width:250px;
   background-color: #fff;
   box-shadow:0 0 20px rgba(black,0.1);
   overflow:hidden;
@@ -419,6 +418,7 @@ $unhoveredCardSize: 185px;
   }
   &:hover{
     box-shadow:0 0 50px rgba(black,0.3);
+    z-index:1;
   }
 }
 
@@ -509,8 +509,8 @@ $unhoveredCardSize: 185px;
 }
 
 .card__title{
-  margin: 0; padding: 0 0 10px 0;
-  
+  margin: 0;
+  padding: 0 0 10px 0;
   color: white;
   font-size: 22px;
   font-weight: bold;
@@ -518,8 +518,8 @@ $unhoveredCardSize: 185px;
 }
 
 .card__subtitle{
-  margin: 0; padding: 0 0 10px 0;
-  
+  margin: 0;
+  padding: 0 0 10px 0;
   font-size: 19px;
   color: white;
 }
@@ -566,13 +566,30 @@ $unhoveredCardSize: 185px;
 #projectsContainer{
   ul{
     list-style:none;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+
     li{
-      float:left;
-      padding:0.5rem;
+      .card__container{
+        position:absolute;
+      }
     }
   }
 }
 
 .hidden {
   display: none;
+}
+
+// Button style
+.pagination-container{
+  .pagination-number{
+    background-color:var(--our-black);
+    border:none;
+    color:white;
+    padding:0.5rem 1rem;
+    text-align: center;
+    display:inline-block;
+    font-size:16px;
+  }
 }

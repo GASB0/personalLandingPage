@@ -379,8 +379,55 @@ window.addEventListener("load", () => {
 
     if (pageIndex) {
       button.addEventListener("click", () => {
-        setCurrentPage(pageIndex);
+        fadeOutAnim(document.querySelector('#paginated-list').querySelectorAll('li:not(.hidden)'), pageIndex)
+        // setCurrentPage(pageIndex);
       });
     }
   });
+
+  var projectEvListenerCB = () => {
+    if (isInViewport(document.getElementById('projectsSection'))) {
+      projectsAnimation.play();
+      document.removeEventListener('scroll', projectEvListenerCB);
+    }
+  }
+
+  document.addEventListener('scroll', projectEvListenerCB);
 });
+
+// Animacion para la aparicion de las cartas de los proyectos realizados
+let projectsAnimation = anime.timeline({ autoplay: false, loop: false })
+  // .add({
+  //   targets: document.querySelectorAll('.pagination-number'),
+  //   opacity: [0, 1],
+  //   easing: 'easeOutSine',
+  //   duration: 1000,
+  //   delay: anime.stagger(50),
+  // })
+  .add({
+    targets: document.querySelectorAll('#paginated-list li'),
+    opacity: [0, 1],
+    easing: 'easeOutSine',
+    duration: 500,
+    delay: anime.stagger(50),
+    // complete: fadeOutAnim(document.querySelector('#paginated-list').querySelectorAll('li:not(.hidden)')),
+  })
+
+// Animacion para el cambio de pagina
+function fadeOutAnim(target, arg) {
+  return anime({
+    targets: target,
+    autoplay: true,
+    opacity: 0,
+    easing: 'easeOutSine',
+    duration: 1000,
+    complete: () => {
+      // console.log('now we talking')
+      // target.style.opacity = 1;
+      // setCurrentPage(arg)
+    }
+  })
+}
+
+
+// fadeOutAnim(document.getElementById('sampleText'));
