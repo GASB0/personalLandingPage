@@ -19,7 +19,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 }
@@ -28,6 +28,12 @@ h1 {
 font-weight:200;
   font-size:3rem;
 }
+
+h2 {
+font-weight:200;
+  font-size:1.5rem;
+}
+
 p {
   font-weight:200;
   font-size:1.1rem;
@@ -119,7 +125,7 @@ text-align:left;
   overflow: hidden;
   height: 30px;
   line-height: 30px;
-  width: 325px; /* TODO: Este ancho debe ser ajustado con una variable*/
+  width: $titleLineWidth;
   font-weight: 700;
 }
 
@@ -129,7 +135,7 @@ text-align:left;
 }
 
 #line {
-  width: 325px; /* TODO: Este ancho debe ser ajustado con una variable*/
+  width: $titleLineWidth;
   height: 1px;
   background: white;
 }
@@ -379,8 +385,8 @@ text-align:left;
     }
 
     .code{
-      margin-left:2rem;
-      margin-right:2rem;
+      margin-left:1rem;
+      margin-right:1rem;
       margin-bottom:0.8rem;
       font-size:0.8rem;
       font-weight:200;
@@ -590,6 +596,6 @@ $unhoveredCardSize: 10rem;
     padding:0.5rem 1rem;
     text-align: center;
     display:inline-block;
-    font-size:16px;
+    font-size:0.7rem;
   }
 }

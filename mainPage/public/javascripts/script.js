@@ -119,61 +119,7 @@ function isInViewport(element) {
   );
 }
 
-// Centralizacion de las secciones de la pagina:
-function centralizeSection(sectionToCentralize) {
-  paddingTop = (sectionToCentralize.offsetHeight - sectionToCentralize.querySelector('.secContent').offsetHeight) / 2;
-  sectionToCentralize.style.paddingTop = `${paddingTop}px`;
-}
-
-// Funcion para rodear contenido de cualquier cosa a la que se le pueda hacer query
-function surroundSection(elementToSurround) {
-  if (typeof (elementToSurround) == "object") {
-    svgContainer = elementToSurround.querySelector('.svgContainer');
-  } else if (typeof (elementToSurround) == "string") {
-    svgContainer = document.getElementById(elementToSurround).querySelector('.svgContainer');
-  }
-
-  svgContainer.setAttribute("points",
-    `0,0 ${elementToSurround.querySelector('.secContent').offsetWidth},0
-    ${elementToSurround.querySelector('.secContent').offsetWidth},${elementToSurround.querySelector('.secContent').offsetHeight} 
-    0,${elementToSurround.querySelector('.secContent').offsetHeight}
-    0,0`);
-}
-
-class animatedSurrounding {
-  constructor(element) {
-    this.animated = false;
-    this.element = element;
-    surroundSection(this.element);    // Funcion para animar el rodeado de un div con rectangulo SVG
-    this.animation = anime({
-      targets: this.element.querySelector('.svgContainer'),
-      strokeDashoffset: [anime.setDashoffset, 0],
-      easing: 'cubicBezier(.5, .05, .1, .3)',
-      duration: 1500,
-      autoplay: false,
-      loop: false,
-    });
-  }
-  play() {
-    if (!this.animated) {
-      this.animated = true;
-      this.animation.play();
-      this.animation.finished.then(() => {
-      });
-    }
-  }
-}
-
-// Reajustando los recuadros cuando se reajusta la ventana
-window.onresize = () => {
-  document.querySelectorAll('.surroundedByBox').forEach(node => {
-    surroundSection(node);
-  })
-};
-
-// Centralizacion del about
-centralizeSection(document.getElementById('aboutThisPage'));
-
+// TODO: hacer esto con CSS
 // Centralizacion los elementos laterales
 window.addEventListener('load', () => {
   for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
@@ -212,17 +158,32 @@ document.querySelectorAll('.sideButtonRow').forEach((elem) => {
     });
 });
 
-// Animacion de las secciones rodeadas
-document.querySelectorAll('#aboutThisPage')
-  .forEach((elem) => {
-    var section = new animatedSurrounding(elem);
-    document.addEventListener('scroll', (ev) => {
-      if (isInViewport(section.element)) {
-        // TODO: Remove section from this event listener after drawing.
-        section.play();
-      }
-    })
-  })
+// Animacion del About
+var aboutAnimation = anime.timeline({
+  autoplay: false,
+  loop: false,
+}).add({
+  targets: document.querySelector('#aboutThisPage .aboutMePart p'),
+  opacity: [0, 1],
+  translateY: ['-2.5rem', 0],
+  easing: 'easeInOutSine',
+  duration: 500,
+}).add({
+  targets: document.querySelector('.aboutThisPage'),
+  opacity: [0, 1],
+  translateX: ['5rem', 0],
+  easing: 'spring(1, 60, 10, 0)',
+  duration: 800,
+})
+
+var aboutEvListenerCB = () => {
+  if (isInViewport(document.querySelector('#aboutThisPage'))) {
+    aboutAnimation.play();
+    document.removeEventListener('scroll', aboutEvListenerCB)
+  }
+}
+
+document.addEventListener('scroll', aboutEvListenerCB)
 
 // Animacion de la barra de navegacion
 anime({
@@ -296,9 +257,6 @@ document.addEventListener('scroll', skillsEvListenerCB)
 
 
 // Animaciones para la seccion de updates de blogs
-// TODO: Arreglar esta animacion.
-// Por alguna razon esta seccion aparece por un instante antes de que
-// aparezca con la animacion deseada cuando uno de los blogs esta seleccionado.
 var blogUpdatesAnimation = anime({
   targets: document.querySelectorAll('#blogUpdatesSection .container'),
   opacity: [0, 1],
