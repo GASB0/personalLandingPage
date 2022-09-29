@@ -309,6 +309,7 @@ var blogUpdatesAnimation = anime({
 
 var blogEvListenerCB = () => {
   if (isInViewport(document.getElementById('blogUpdatesSection'))) {
+    document.querySelector('#blogUpdatesSection .container').style.visibility = 'visible';
     blogUpdatesAnimation.play();
     document.removeEventListener('scroll', blogEvListenerCB)
   }
@@ -366,6 +367,7 @@ const setCurrentPage = (pageNum) => {
     item.classList.add("hidden");
     if (index >= prevRange && index < currRange) {
       item.classList.remove("hidden");
+      fadeInAnim(item);
     }
   });
 };
@@ -380,13 +382,13 @@ window.addEventListener("load", () => {
     if (pageIndex) {
       button.addEventListener("click", () => {
         fadeOutAnim(document.querySelector('#paginated-list').querySelectorAll('li:not(.hidden)'), pageIndex)
-        // setCurrentPage(pageIndex);
       });
     }
   });
 
   var projectEvListenerCB = () => {
     if (isInViewport(document.getElementById('projectsSection'))) {
+      document.getElementById('projectsContainer').style.visibility = 'visible';
       projectsAnimation.play();
       document.removeEventListener('scroll', projectEvListenerCB);
     }
@@ -407,10 +409,10 @@ let projectsAnimation = anime.timeline({ autoplay: false, loop: false })
   .add({
     targets: document.querySelectorAll('#paginated-list li'),
     opacity: [0, 1],
+    translateY: ['5rem', 0],
     easing: 'easeOutSine',
     duration: 500,
     delay: anime.stagger(50),
-    // complete: fadeOutAnim(document.querySelector('#paginated-list').querySelectorAll('li:not(.hidden)')),
   })
 
 // Animacion para el cambio de pagina
@@ -420,14 +422,23 @@ function fadeOutAnim(target, arg) {
     autoplay: true,
     opacity: 0,
     easing: 'easeOutSine',
-    duration: 1000,
+    duration: 300,
+    delay: anime.stagger(100),
     complete: () => {
-      // console.log('now we talking')
-      // target.style.opacity = 1;
-      // setCurrentPage(arg)
+      target.forEach(elem => {
+        elem.style.opacity = 1;
+      })
+      setCurrentPage(arg)
     }
   })
 }
 
-
-// fadeOutAnim(document.getElementById('sampleText'));
+function fadeInAnim(target) {
+  return anime({
+    targets: target,
+    autoplay: true,
+    opacity: [0, 1],
+    easing: 'easeOutSine',
+    duration: 300,
+  })
+}
