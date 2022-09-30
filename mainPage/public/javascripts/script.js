@@ -262,7 +262,7 @@ var blogUpdatesAnimation = anime({
   opacity: [0, 1],
   translateY: ['8em', '0'],
   easing: 'easeInOutExpo',
-  duration: 1700,
+  duration: 1000,
 })
 
 var blogEvListenerCB = () => {
@@ -400,3 +400,47 @@ function fadeInAnim(target) {
     duration: 300,
   })
 }
+
+// Botones de cambio de seccion
+var sections = Array.from(document.querySelectorAll('section'));
+var sectIndex = 0;
+
+function nextSectCB() {
+  if (sectIndex < sections.length - 1) {
+    sections[sectIndex + 1].scrollIntoView();
+    return true;
+  }
+  return false;
+}
+
+function formerSectCB() {
+  if (sectIndex > 0) {
+    sections[sectIndex - 1].scrollIntoView();
+    return true;
+  }
+  return false;
+}
+
+document.addEventListener('scroll', (ev) => {
+  document.querySelectorAll('section').forEach(sect => {
+    if (isInViewport(sect)) {
+      sectIndex = sections.indexOf(sect);
+    }
+  })
+})
+
+document.getElementById("formerSectButton").addEventListener('click', formerSectCB);
+document.getElementById("nextSectButton").addEventListener('click', nextSectCB);
+document.getElementById("pageTop").addEventListener('click', () => { sections[0].scrollIntoView(); })
+document.getElementById("pageBottom").addEventListener('click', () => { sections[sections.length - 1].scrollIntoView(); });
+
+// Animaciones de estos botones
+var scrollButtonsAnim = anime({
+  autoplay: false,
+  targets: document.querySelectorAll('#sectButtons > div'),
+  easing: 'easeOutSine',
+  translateX: ['100%', 0],
+  delay: anime.stagger(300),
+  duration: 1000,
+})
+scrollButtonsAnim.play();
