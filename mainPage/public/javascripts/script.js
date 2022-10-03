@@ -1,70 +1,59 @@
 var anime = require('animejs');
 var TypeIt = require('typeit');
 
-// Title animation:
-var titleWrapper = document.getElementById('upper')
-titleWrapper.innerHTML = titleWrapper.textContent.trim().replace(/(.)/g, "<div class='titleLetter' style='float: left;'>$&</div>");
+// Declaracion de todas las funciones que voy a utilizar
+function nextSectCB() {
+  if (sectIndex < sections.length - 1) {
+    sections[sectIndex + 1].scrollIntoView();
+    return true;
+  }
+  return false;
+}
 
-// Page loading animation
-var tl = anime.timeline({ easing: 'easeOutExpo' });
-tl.add({
-  targets: '#line',
-  opacity: [0.5, 1],
-  scaleX: [0, 1],
-  easing: "easeInOutExpo",
-  duration: 700
-}).add({
-  targets: '#upper',
-  opacity: [0, 1],
-  translateY: [30, 0],
-  easing: "easeOutExpo",
-  duration: 600,
-}, "-=100").add({
-  targets: '#lower',
-  opacity: [0, 1],
-  translateY: [-30, 0],
-  easing: "easeOutExpo",
-  duration: 600,
-}, "-=600").add({
-  delay: 2300,
-  targets: '#lower',
-  opacity: [1, 0],
-  translateY: [0, 30],
-  duration: 2000,
-}).finished.then(() => {
-  document.getElementById('upperWrap').style.overflow = 'visible';
-  document.getElementById('upper').addEventListener('mouseenter', () => {
-    if (!pageTitleOnHoverAnimation.began || !(pageTitleOnHoverAnimation.remaining > 0)) {
-      pageTitleOnHoverAnimation.play();
+function formerSectCB() {
+  if (sectIndex > 0) {
+    sections[sectIndex - 1].scrollIntoView();
+    return true;
+  }
+  return false;
+}
+
+function isInViewport(element) {
+  // Revisar si el elemento esta dentro del viewport
+  const rect = element.getBoundingClientRect();
+  return (
+    (Math.abs(rect.top) / 2) <= window.innerHeight / 4 &&
+    rect.left >= 0
+  );
+}
+
+// Animacion para el cambio de pagina
+function fadeOutAnim(target, arg) {
+  return anime({
+    targets: target,
+    autoplay: true,
+    opacity: 0,
+    easing: 'easeOutSine',
+    duration: 300,
+    delay: anime.stagger(100),
+    complete: () => {
+      target.forEach(elem => {
+        elem.style.opacity = 1;
+      })
+      setCurrentPage(arg)
     }
   })
-  document.getElementById('lower').textContent = '';
-  document.getElementById('lower').style.opacity = 1;
-  document.getElementById('lower').style.transform = "translateY(0)";
-  new TypeIt("#lower", {
-    strings: ["Scroll down for the cool stuff"],
-    speed: 60,
-    loop: false,
-  }).go();
-})
-var pageTitleOnHoverAnimation = anime({
-  autoplay: false,
-  targets: document.querySelectorAll('.titleLetter'),
-  translateY: [
-    { value: '-1em', easing: 'easeOutSine', duration: 250 },
-    { value: '0', easing: 'easeInOutQuad', duration: 500 }
-  ],
-  delay: anime.stagger(50),
-})
-// Animacion de la barra lateral izquierda
-anime({
-  targets: ['.animate-thing path', '.animate-thing rect', '.animate-thing line', '.animate-thing polyline', '.animate-thing circle'],
-  strokeDashoffset: [anime.setDashoffset, 0],
-  easing: 'easeInOutSine',
-  duration: 1000,
-  delay: function(el, i) { return (i * 60); },
-  opacity: [0, 1],
-});
+}
+
+function fadeInAnim(target) {
+  return anime({
+    targets: target,
+    autoplay: true,
+    opacity: [0, 1],
+    easing: 'easeOutSine',
+    duration: 300,
+  })
+}
 
 // Animaciones para los botones de los lados:
 class slideButton {
@@ -110,14 +99,86 @@ class slideButton {
   }
 }
 
-// Revisar si el elemento esta dentro del viewport
-function isInViewport(element) {
-  const rect = element.getBoundingClientRect();
-  return (
-    (Math.abs(rect.top) / 2) <= window.innerHeight / 4 &&
-    rect.left >= 0
-  );
-}
+//-------------------------------------------------------------//
+// Definicion de las animaciones de la pagina
+//-------------------------------------------------------------//
+
+// Title animation:
+var titleWrapper = document.getElementById('upper')
+titleWrapper.innerHTML = titleWrapper.textContent.trim().replace(/(.)/g, "<div class='titleLetter' style='float: left;'>$&</div>");
+
+var titleAnim = anime.timeline({ easing: 'easeOutExpo', autoplay: false });
+titleAnim.add({
+  targets: '#line',
+  opacity: [0.5, 1],
+  scaleX: [0, 1],
+  easing: "easeInOutExpo",
+  duration: 700
+}).add({
+  targets: '#upper',
+  opacity: [0, 1],
+  translateY: [30, 0],
+  easing: "easeOutExpo",
+  duration: 600,
+}, "-=100").add({
+  targets: '#lower',
+  opacity: [0, 1],
+  translateY: [-30, 0],
+  easing: "easeOutExpo",
+  duration: 600,
+}, "-=600").add({
+  delay: 2300,
+  targets: '#lower',
+  opacity: [1, 0],
+  translateY: [0, 30],
+  duration: 2000,
+}).finished.then(() => {
+  document.getElementById('upperWrap').style.overflow = 'visible';
+  document.getElementById('upper').addEventListener('mouseenter', () => {
+    if (!pageTitleOnHoverAnimation.began || !(pageTitleOnHoverAnimation.remaining > 0)) {
+      pageTitleOnHoverAnimation.play();
+    }
+  })
+  document.getElementById('lower').textContent = '';
+  document.getElementById('lower').style.opacity = 1;
+  document.getElementById('lower').style.transform = "translateY(0)";
+  new TypeIt("#lower", {
+    strings: ["Scroll down for the cool stuff"],
+    speed: 60,
+    loop: false,
+  }).go();
+})
+
+var pageTitleOnHoverAnimation = anime({
+  autoplay: false,
+  targets: document.querySelectorAll('.titleLetter'),
+  translateY: [
+    { value: '-1em', easing: 'easeOutSine', duration: 250 },
+    { value: '0', easing: 'easeInOutQuad', duration: 500 }
+  ],
+  delay: anime.stagger(50),
+})
+
+// Animacion de la barra lateral izquierda
+var leftBarAnimation = anime({
+  autoplay: false,
+  targets: ['.animate-thing path', '.animate-thing rect', '.animate-thing line', '.animate-thing polyline', '.animate-thing circle'],
+  strokeDashoffset: [anime.setDashoffset, 0],
+  easing: 'easeInOutSine',
+  duration: 500,
+  delay: function(el, i) { return (i * 60); },
+  opacity: [0, 1],
+});
+
+// Animaciones de estos botones
+var scrollButtonsAnim = anime({
+  autoplay: false,
+  targets: document.querySelectorAll('#sectButtons > div'),
+  easing: 'easeInOutExpo',
+  translateX: ['100%', 0],
+  delay: anime.stagger(10),
+  duration: 800,
+})
 
 // TODO: hacer esto con CSS
 // Centralizacion los elementos laterales
@@ -163,7 +224,7 @@ var aboutAnimation = anime.timeline({
   autoplay: false,
   loop: false,
 }).add({
-  targets: document.querySelector('#aboutThisPage .aboutMePart p'),
+  targets: document.querySelectorAll('#aboutThisPage .aboutMePart p'),
   opacity: [0, 1],
   translateY: ['-2.5rem', 0],
   easing: 'easeInOutSine',
@@ -183,10 +244,9 @@ var aboutEvListenerCB = () => {
   }
 }
 
-document.addEventListener('scroll', aboutEvListenerCB)
-
 // Animacion de la barra de navegacion
-anime({
+var navBarAnim = anime({
+  autoplay: false,
   targets: document.querySelectorAll('nav ol li'),
   easing: 'easeInOutSine',
   opacity: [0, 1],
@@ -196,23 +256,21 @@ anime({
 })
 
 // Animacion de la barra con mi correo y resume
-// TODO: Cambiar esta animacion
-// Quiero que esta animacion se vea como la animacion
-// que uso para los botones laterales
-anime.timeline({})
+var leftBarAnim = anime.timeline({ autoplay: false })
   .add({
     targets: '#myEmail',
-    easing: 'easeInOutSine',
+    easing: 'easeInOutExpo',
     translateX: ['1em', '0'],
     opacity: [0, 1],
-    duration: 500,
-  }).add({
-    targets: '#myResume',
-    easing: 'easeInOutSine',
-    translateY: ['-1em', '0'],
-    opacity: [0, 1],
-    duration: 600,
+    duration: 300,
   })
+//.add({
+//   targets: '#myResume',
+//   easing: 'easeInOutSine',
+//   translateY: ['-1em', '0'],
+//   opacity: [0, 1],
+//   duration: 600,
+// })
 
 // Code animation
 var code_animation = new TypeIt("#sampleCode3", {
@@ -233,7 +291,7 @@ var stuffIKnowAnimation = anime.timeline({ autoplay: false, loop: false, }).add(
   easing: 'easeInOutSine',
   opacity: [0, 1],
   duration: 500,
-  delay: anime.stagger(140),
+  delay: anime.stagger(70),
 }, '-=750')
   .add({
     targets: document.querySelectorAll('.codeWindow'),
@@ -253,8 +311,6 @@ var skillsEvListenerCB = () => {
     document.removeEventListener('scroll', skillsEvListenerCB)
   }
 }
-document.addEventListener('scroll', skillsEvListenerCB)
-
 
 // Animaciones para la seccion de updates de blogs
 var blogUpdatesAnimation = anime({
@@ -272,8 +328,6 @@ var blogEvListenerCB = () => {
     document.removeEventListener('scroll', blogEvListenerCB)
   }
 }
-
-document.addEventListener('scroll', blogEvListenerCB)
 
 // Paginado de los proyectos hechos hasta el momento. Cortesia de:
 // https://webdesign.tutsplus.com/tutorials/pagination-with-vanilla-javascript--cms-41896
@@ -330,40 +384,35 @@ const setCurrentPage = (pageNum) => {
   });
 };
 
-window.addEventListener("load", () => {
-  getPaginationNumbers();
-  setCurrentPage(1);
+var projectsSectionSetUp = () => {
+  window.addEventListener("load", () => {
+    getPaginationNumbers();
+    setCurrentPage(1);
 
-  document.querySelectorAll(".pagination-number").forEach((button) => {
-    const pageIndex = Number(button.getAttribute("page-index"));
+    document.querySelectorAll(".pagination-number").forEach((button) => {
+      const pageIndex = Number(button.getAttribute("page-index"));
 
-    if (pageIndex) {
-      button.addEventListener("click", () => {
-        fadeOutAnim(document.querySelector('#paginated-list').querySelectorAll('li:not(.hidden)'), pageIndex)
-      });
+      if (pageIndex) {
+        button.addEventListener("click", () => {
+          fadeOutAnim(document.querySelector('#paginated-list').querySelectorAll('li:not(.hidden)'), pageIndex)
+        });
+      }
+    });
+
+    var projectEvListenerCB = () => {
+      if (isInViewport(document.getElementById('projectsSection'))) {
+        document.getElementById('projectsContainer').style.visibility = 'visible';
+        projectsAnimation.play();
+        document.removeEventListener('scroll', projectEvListenerCB);
+      }
     }
+
+    document.addEventListener('scroll', projectEvListenerCB);
   });
-
-  var projectEvListenerCB = () => {
-    if (isInViewport(document.getElementById('projectsSection'))) {
-      document.getElementById('projectsContainer').style.visibility = 'visible';
-      projectsAnimation.play();
-      document.removeEventListener('scroll', projectEvListenerCB);
-    }
-  }
-
-  document.addEventListener('scroll', projectEvListenerCB);
-});
+}
 
 // Animacion para la aparicion de las cartas de los proyectos realizados
 let projectsAnimation = anime.timeline({ autoplay: false, loop: false })
-  // .add({
-  //   targets: document.querySelectorAll('.pagination-number'),
-  //   opacity: [0, 1],
-  //   easing: 'easeOutSine',
-  //   duration: 1000,
-  //   delay: anime.stagger(50),
-  // })
   .add({
     targets: document.querySelectorAll('#paginated-list li'),
     opacity: [0, 1],
@@ -373,53 +422,9 @@ let projectsAnimation = anime.timeline({ autoplay: false, loop: false })
     delay: anime.stagger(50),
   })
 
-// Animacion para el cambio de pagina
-function fadeOutAnim(target, arg) {
-  return anime({
-    targets: target,
-    autoplay: true,
-    opacity: 0,
-    easing: 'easeOutSine',
-    duration: 300,
-    delay: anime.stagger(100),
-    complete: () => {
-      target.forEach(elem => {
-        elem.style.opacity = 1;
-      })
-      setCurrentPage(arg)
-    }
-  })
-}
-
-function fadeInAnim(target) {
-  return anime({
-    targets: target,
-    autoplay: true,
-    opacity: [0, 1],
-    easing: 'easeOutSine',
-    duration: 300,
-  })
-}
-
 // Botones de cambio de seccion
 var sections = Array.from(document.querySelectorAll('section'));
 var sectIndex = 0;
-
-function nextSectCB() {
-  if (sectIndex < sections.length - 1) {
-    sections[sectIndex + 1].scrollIntoView();
-    return true;
-  }
-  return false;
-}
-
-function formerSectCB() {
-  if (sectIndex > 0) {
-    sections[sectIndex - 1].scrollIntoView();
-    return true;
-  }
-  return false;
-}
 
 document.addEventListener('scroll', (ev) => {
   document.querySelectorAll('section').forEach(sect => {
@@ -429,18 +434,34 @@ document.addEventListener('scroll', (ev) => {
   })
 })
 
-document.getElementById("formerSectButton").addEventListener('click', formerSectCB);
-document.getElementById("nextSectButton").addEventListener('click', nextSectCB);
-document.getElementById("pageTop").addEventListener('click', () => { sections[0].scrollIntoView(); })
-document.getElementById("pageBottom").addEventListener('click', () => { sections[sections.length - 1].scrollIntoView(); });
+// Setup de la pagina luego de que termine de cargar el body
+document.onreadystatechange = () => {
+  if (document.readyState == 'complete') {
+    // Preparando las animaciones iniciales
+    navBarAnim.play();
+    leftBarAnim.complete = () => {
+      titleAnim.play();
+    }
+    scrollButtonsAnim.complete = () => {
+      leftBarAnim.play();
+    }
+    leftBarAnimation.complete = () => {
+      document.getElementById("formerSectButton").addEventListener('click', formerSectCB);
+      document.getElementById("nextSectButton").addEventListener('click', nextSectCB);
+      document.getElementById("pageTop").addEventListener('click', () => { sections[0].scrollIntoView(); })
+      document.getElementById("pageBottom").addEventListener('click', () => { sections[sections.length - 1].scrollIntoView(); });
+      scrollButtonsAnim.play();
+    }
+    navBarAnim.complete = () => {
+      leftBarAnimation.play();
+    }
 
-// Animaciones de estos botones
-var scrollButtonsAnim = anime({
-  autoplay: false,
-  targets: document.querySelectorAll('#sectButtons > div'),
-  easing: 'easeOutSine',
-  translateX: ['100%', 0],
-  delay: anime.stagger(300),
-  duration: 1000,
-})
-scrollButtonsAnim.play();
+    // Preparando las secciones:
+    document.addEventListener('scroll', aboutEvListenerCB);
+    document.addEventListener('scroll', skillsEvListenerCB)
+    document.addEventListener('scroll', blogEvListenerCB)
+    projectsSectionSetUp();
+  }
+}
+
+
