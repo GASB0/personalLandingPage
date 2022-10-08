@@ -423,6 +423,7 @@ text-align:left;
 .codeWindow{
   position:relative;
   align-self:flex-start;
+  margin:1rem;
 
   :not(:last-child){
     margin-bottom:1rem;
