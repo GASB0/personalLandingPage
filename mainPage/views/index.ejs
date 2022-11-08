@@ -7,6 +7,7 @@
   <title>
     <%= title %>
   </title>
+  <link href="/stylesheets/iosevka/iosevka.css" rel="stylesheet" type="text/css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link href="/katex/dist/katex.css" rel="stylesheet" type="text/css">
   <link href="/stylesheets/styles/github-dark.css" rel="stylesheet" type="text/css">
@@ -14,12 +15,13 @@
 
 <body>
   <nav>
-    <div id='navButtons' style="font-size:0.8rem; z-index:10; position:absolute; top:0;left:0;">
+    <div id='navButtons' style="font-size:1rem; z-index:10; position:absolute; top:0;left:0;">
       <ol>
         <li><span><a href="#aboutThisPage">About</a></span></li>
         <li><span><a href="#stuffIKnow">Stuff I know about</a></span></li>
         <li><span><a href="#projectsSection">Things I've made</a></span></li>
         <li><span><a href="#blogUpdatesSection">Blog Updates</a></span></li>
+        <!-- <li><span><a href="#contactMe">Contact me</a></span></li> -->
       </ol>
     </div>
     <!-- <div id='myResume' style="font-size:0.8rem; position:absolute; right:2rem;"> -->
@@ -29,7 +31,7 @@
   </nav>
 
   <!-- Barra lateral derecha -->
-  <div class="sideStuff" style="position:fixed; right:2px; writing-mode: vertical-lr; font-size:11px;">
+  <div class="sideStuff" style="position:fixed; right:2px; writing-mode: vertical-lr; font-size:0.9rem;">
     <div id="myEmail">
       santos.baez.gabriel.elo@gmail.com
     </div>
@@ -155,7 +157,7 @@
     </div>
     <div id="line"></div>
     <div id="lowerWrap">
-      <div id="lower">Welcome to my little piece of internet</div>
+      <div id="lower" style="font-size:1.2rem;">Welcome to my little piece of internet</div>
     </div>
   </section>
 
@@ -430,7 +432,7 @@
   <!-- TODO: Agregar seccion de los ultimos blogs subidos -->
   <section id="blogUpdatesSection">
     <h1>Recent updates</h1>
-    <div class="container" style='visibility:hidden;'>
+    <div class="container" style='visibility:hidden; z-index:-1;'>
       <div class="accordion">
         <div class="accordion-item" id="lastestUpdate">
           <a class="accordion-link" href="#lastestUpdate">

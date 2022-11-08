@@ -465,3 +465,13 @@ document.onreadystatechange = () => {
 }
 
 
+
+// FIXME: Debes encontra otro metodo para que las cartas de los proyectos no se solapen
+// con el contenido de la seccion de mas abajo
+document.querySelector('#blogUpdatesSection').addEventListener('mouseenter', () => {
+  document.querySelector('#blogUpdatesSection .container').style.zIndex = "0";
+})
+
+document.querySelector('#blogUpdatesSection').addEventListener('mouseleave', () => {
+  document.querySelector('#blogUpdatesSection .container').style.zIndex = "-1";
+})
