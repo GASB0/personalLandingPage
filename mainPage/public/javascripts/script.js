@@ -1,5 +1,6 @@
 var anime = require('animejs');
 var TypeIt = require('typeit');
+var Starback = require('starback');
 
 // Declaracion de todas las funciones que voy a utilizar
 function nextSectCB() {
@@ -464,7 +465,16 @@ document.onreadystatechange = () => {
   }
 }
 
-
+// Efecto de las estrellas
+const starback = new Starback(document.getElementById('theCanvas'), {
+  type: 'dot',
+  quantity: 200,
+  direction: 225,
+  backgroundColor: ['#1B1B1B'],
+  randomOpacity: true,
+  height: document.getElementById('presentation').clientHeight,
+  width: document.getElementById('presentation').clientWidth,
+})
 
 // FIXME: Debes encontra otro metodo para que las cartas de los proyectos no se solapen
 // con el contenido de la seccion de mas abajo

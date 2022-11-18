@@ -31,14 +31,14 @@
   </nav>
 
   <!-- Barra lateral derecha -->
-  <div class="sideStuff" style="position:fixed; right:2px; writing-mode: vertical-lr; font-size:0.9rem;">
+  <div class="sideStuff" style="position:fixed; right:2px; writing-mode: vertical-lr; font-size:0.9rem; z-index: 10;">
     <div id="myEmail">
       santos.baez.gabriel.elo@gmail.com
     </div>
   </div>
 
   <!-- Barra lateral izquierda -->
-  <div class="sideStuff" style="position:fixed; left:0px; font-size:15px;">
+  <div class="sideStuff" style="position:fixed; left:0px; font-size:15px; z-index: 10;">
     <div id='giteaRow' class="sideButtonRow">
       <div class="sideButtonLogo">
         <a href="https://git.gasantos.xyz/" style="color: inherit;">
@@ -100,7 +100,7 @@
   </div>
 
   <!-- Botones para cambiar las secciones -->
-  <div id="sectButtons">
+  <div id="sectButtons" style="z-index:10;">
     <div id="pageTop">
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-up-circle" width="24"
         height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -149,15 +149,19 @@
   </div>
 
   <!-- Cabecera/Seccion de presentacion -->
-  <section id="presentation">
-    <div id="upperWrap" style="display:flex; justify-content:center;">
-      <div id="upper" style="overflow:visible;">
-        GASB0's &nbsp; webcorner
+  <section id="presentation" style="width:100%; position:relative;">
+    <canvas id="theCanvas" style="z-index:-20; position:absolute;">
+    </canvas>
+    <div>
+      <div id="upperWrap" style="display:flex; justify-content:center;">
+        <div id="upper" style="overflow:visible;">
+          GASB0's &nbsp; webcorner
+        </div>
       </div>
-    </div>
-    <div id="line"></div>
-    <div id="lowerWrap">
-      <div id="lower" style="font-size:1.2rem;">Welcome to my little piece of internet</div>
+      <div id="line"></div>
+      <div id="lowerWrap">
+        <div id="lower" style="font-size:1.2rem;">Welcome to my little piece of internet</div>
+      </div>
     </div>
   </section>
 
@@ -488,8 +492,6 @@
       </div>
     </div>
   </section>
-
-  <!-- TODO: Agregar aplicación de archivo de blogs y proyectos -->
 
   <script type="text/javascript" src="/javascripts/script2.js"></script>
 </body>
