@@ -1,6 +1,16 @@
-var anime = require('animejs');
-var TypeIt = require('typeit');
-var Starback = require('starback');
+// augroup javascript | au! BufWritePost <buffer> silent exec '!npx browserify %:p -o %:r2.js' | augroup END
+import { default as anime } from './animejs/lib/anime.es.js';
+import * as THREE from './three/build/three.module.js';
+import { WebGL } from './WebGL.js';
+import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
+import { GlitchPass } from './three/examples/jsm/postprocessing/GlitchPass.js';
+import { BloomPass } from './three/examples/jsm/postprocessing/BloomPass.js';
+import { ShaderPass } from './three/examples/jsm/postprocessing/ShaderPass.js';
+import { LuminosityShader } from './three/examples/jsm/shaders/LuminosityShader.js';
+import { AfterimagePass } from './three/examples/jsm/postprocessing/AfterimagePass.js'
+import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { default as TypeIt } from './typeit/dist/index.es.js';
 
 // Declaracion de todas las funciones que voy a utilizar
 function nextSectCB() {
@@ -56,6 +66,22 @@ function fadeInAnim(target) {
   })
 }
 
+function disableScroll() {
+  // Get the current page scroll position
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+  // if any scroll is attempted, set this to the previous value
+  window.onscroll = function() {
+    window.scrollTo(scrollLeft, scrollTop);
+  };
+}
+
+function enableScroll() {
+  window.onscroll = function() { };
+}
+
+disableScroll();
 // Animaciones para los botones de los lados:
 class slideButton {
   constructor(sideButtonRow) {
@@ -184,21 +210,31 @@ var scrollButtonsAnim = anime({
 // TODO: hacer esto con CSS
 // Centralizacion los elementos laterales
 window.addEventListener('load', () => {
-  for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
-    thingToCentralize = document.querySelectorAll('.sideStuff')[i];
-    padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
+  for (let i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
+    let thingToCentralize = document.querySelectorAll('.sideStuff')[i];
+    let padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
     thingToCentralize.style.bottom = `${padding}px`;
   }
 })
 
 window.addEventListener('resize', () => {
-  for (i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
-    thingToCentralize = document.querySelectorAll('.sideStuff')[i];
-    padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
+  for (let i = 0; i < document.querySelectorAll('.sideStuff').length; i++) {
+    let thingToCentralize = document.querySelectorAll('.sideStuff')[i];
+    let padding = (window.innerHeight - thingToCentralize.offsetHeight) / 2;
     thingToCentralize.style.bottom = `${padding}px`;
   }
 })
 
+// Animacion de la pantalla de carga:
+let loaderAnim = anime.timeline({
+  autoplay: false,
+  loop: false,
+}).add({
+  targets: document.getElementById('pageLoader'),
+  opacity: [1, 0],
+  easing: 'easeInOutSine',
+  duration: 1300,
+})
 
 // Animacion de los botones laterales
 document.querySelectorAll('.sideButtonRow').forEach((elem) => {
@@ -438,7 +474,17 @@ document.addEventListener('scroll', (ev) => {
 // Setup de la pagina luego de que termine de cargar el body
 document.onreadystatechange = () => {
   if (document.readyState == 'complete') {
+    // Renderizando el verdadero contenido de la pagina:
+
     // Preparando las animaciones iniciales
+    let loader = document.getElementById('pageLoader');
+    loaderAnim.play();
+    loaderAnim.complete = () => {
+      loader.style.display = 'none';
+      loader.remove();
+      enableScroll();
+    }
+
     navBarAnim.play();
     leftBarAnim.complete = () => {
       titleAnim.play();
@@ -462,19 +508,28 @@ document.onreadystatechange = () => {
     document.addEventListener('scroll', skillsEvListenerCB)
     document.addEventListener('scroll', blogEvListenerCB)
     projectsSectionSetUp();
+
+    // Iniciando las animaciones 3D:
+    if (WebGL.isWebGLAvailable()) {
+      animate();
+    } else {
+      const warning = WebGL.getWebGLErrorMessage();
+      console.log(warning);
+      // document.getElementById("container3d").removeChild()
+    }
   }
 }
 
 // Efecto de las estrellas
-const starback = new Starback(document.getElementById('theCanvas'), {
-  type: 'dot',
-  quantity: 200,
-  direction: 225,
-  backgroundColor: ['#1B1B1B'],
-  randomOpacity: true,
-  height: document.getElementById('presentation').clientHeight,
-  width: document.getElementById('presentation').clientWidth,
-})
+// const starback = new Starback(document.getElementById('theCanvas'), {
+//   type: 'dot',
+//   quantity: 200,
+//   direction: 225,
+//   backgroundColor: ['#1B1B1B'],
+//   randomOpacity: true,
+//   height: document.getElementById('presentation').clientHeight,
+//   width: document.getElementById('presentation').clientWidth,
+// })
 
 // FIXME: Debes encontra otro metodo para que las cartas de los proyectos no se solapen
 // con el contenido de la seccion de mas abajo
@@ -485,3 +540,98 @@ document.querySelector('#blogUpdatesSection').addEventListener('mouseenter', () 
 document.querySelector('#blogUpdatesSection').addEventListener('mouseleave', () => {
   document.querySelector('#blogUpdatesSection .container').style.zIndex = "-1";
 })
+
+// Chulerias de 3D
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+document.getElementById("container3d").appendChild(renderer.domElement)
+
+// Adding mouse interaction
+var mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', (event) => {
+  let windowHalfX = window.innerWidth / 2;
+  let windowHalfY = window.innerHeight / 2;
+  mouseX = (event.clientX - (windowHalfX)) * 0.005;
+  mouseY = (event.clientY - (windowHalfY)) * 0.005;
+}, false);
+
+// Particle system:
+var textureLoader = new THREE.TextureLoader();
+var pGeometry = new THREE.BufferGeometry();
+var pNum = 1000;
+var vertices = new Float32Array(3 * pNum);
+
+function randn_bm() {
+  let u = 1 - Math.random(); //Converting [0,1) to (0,1)
+  let v = Math.random();
+  return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+}
+
+for (let i = 0; i < pNum; i++) {
+  vertices[i * 3 + 0] = (randn_bm()) * 5;
+  vertices[i * 3 + 1] = (randn_bm()) * 5;
+  vertices[i * 3 + 2] = (randn_bm()) * 5;
+}
+
+pGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+var pMaterial = new THREE.PointsMaterial({
+  size: 0.07,
+  map: textureLoader.load('images/sprite.png'),
+  transparent: true,
+  opacity: 0.25,
+  blending: THREE.AdditiveBlending,
+  sizeAttenuation: true,
+});
+
+var moverGroup = new THREE.Object3D();
+const particles = new THREE.Points(pGeometry, pMaterial);
+moverGroup.add(particles)
+
+scene.add(moverGroup)
+
+// Setting camera
+camera.position.z = 5;
+camera.lookAt(scene.position);
+
+// Post processing
+const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, camera);
+const bloomPass = new BloomPass(100, 100, 4);
+const glitchPass = new GlitchPass(1);
+const lumiPass = new ShaderPass(LuminosityShader);
+const afterPass = new AfterimagePass(0.7);
+const unrealBloom = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  3,
+  0.9,
+  0.1
+);
+
+composer.passes = [renderPass, afterPass, unrealBloom];
+
+// Animating
+function animate() {
+  requestAnimationFrame(animate);
+  composer.render()
+
+  moverGroup.rotation.x += 0.001;
+  moverGroup.rotation.y += 0.001;
+
+  camera.position.x += (mouseX - camera.position.x) * .05;
+  camera.position.y += (-mouseY - camera.position.y) * .05;
+  camera.lookAt(scene.position);
+}
+
+// Este listener es el responsable de actualizar las dimensiones de la escena 
+// al momento de cambiar el tamaño de la ventana
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+  composer.render()
+}, false);

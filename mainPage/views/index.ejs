@@ -150,8 +150,18 @@
 
   <!-- Cabecera/Seccion de presentacion -->
   <section id="presentation" style="width:100%; position:relative;">
-    <canvas id="theCanvas" style="z-index:-20; position:absolute;">
-    </canvas>
+
+    <div id="pageLoader" class="loader-wrapper">
+      <div class="loader-inner ball-triangle-path">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div id="container3d" style="z-index:-20; position:fixed;">
+    </div>
+
     <div>
       <div id="upperWrap" style="display:flex; justify-content:center;">
         <div id="upper" style="overflow:visible;">
@@ -493,7 +503,7 @@
     </div>
   </section>
 
-  <script type="text/javascript" src="/javascripts/script2.js"></script>
+  <script type="module" src="/javascripts/script.js"></script>
 </body>
 
 </html>
